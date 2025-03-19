@@ -7,7 +7,7 @@ package view;
 
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class DataPelanggan extends javax.swing.JFrame {
 

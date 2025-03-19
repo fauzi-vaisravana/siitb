@@ -7,7 +7,7 @@ package view;
 
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class DataBarang extends javax.swing.JFrame {
 

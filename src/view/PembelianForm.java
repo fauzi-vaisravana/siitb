@@ -7,7 +7,7 @@ package view;
 
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class PembelianForm extends javax.swing.JFrame {
 

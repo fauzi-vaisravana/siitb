@@ -12,7 +12,7 @@ import login.loginform;
 import login.logoutform;
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class MainMenu extends javax.swing.JFrame {
 

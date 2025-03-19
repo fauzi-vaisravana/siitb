@@ -15,7 +15,7 @@ import view.MainMenu;
 
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class loginform extends javax.swing.JFrame {
 

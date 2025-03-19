@@ -7,7 +7,7 @@ package login;
 
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class logoutform extends javax.swing.JFrame {
 

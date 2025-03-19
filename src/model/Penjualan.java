@@ -1,32 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model;
 
+/**
+ *
+ * @author Kelompok 2
+ */
 import java.util.Date;
 
-public class Transaksi {
-    private String kodeTransaksi;
+public class Penjualan {
+    private int idPenjualan;
     private String kodePelanggan;
     private String kodeBarang;
     private int jumlah;
+    private double hargaSatuan;
     private double totalHarga;
     private Date tanggal;
 
-    public Transaksi() {}
+    public Penjualan() {}
 
-    public Transaksi(String kodeTransaksi, String kodePelanggan, String kodeBarang, int jumlah, double totalHarga, Date tanggal) {
-        this.kodeTransaksi = kodeTransaksi;
+    public Penjualan(int idPenjualan, String kodePelanggan, String kodeBarang, int jumlah, double hargaSatuan, double totalHarga, Date tanggal) {
+        this.idPenjualan = idPenjualan;
         this.kodePelanggan = kodePelanggan;
         this.kodeBarang = kodeBarang;
         this.jumlah = jumlah;
+        this.hargaSatuan = hargaSatuan;
         this.totalHarga = totalHarga;
         this.tanggal = tanggal;
     }
 
-    public String getKodeTransaksi() {
-        return kodeTransaksi;
+    public int getIdPenjualan() {
+        return idPenjualan;
     }
 
-    public void setKodeTransaksi(String kodeTransaksi) {
-        this.kodeTransaksi = kodeTransaksi;
+    public void setIdPenjualan(int idPenjualan) {
+        this.idPenjualan = idPenjualan;
     }
 
     public String getKodePelanggan() {
@@ -53,6 +64,14 @@ public class Transaksi {
         this.jumlah = jumlah;
     }
 
+    public double getHargaSatuan() {
+        return hargaSatuan;
+    }
+
+    public void setHargaSatuan(double hargaSatuan) {
+        this.hargaSatuan = hargaSatuan;
+    }
+
     public double getTotalHarga() {
         return totalHarga;
     }
@@ -69,3 +88,4 @@ public class Transaksi {
         this.tanggal = tanggal;
     }
 }
+

@@ -7,8 +7,8 @@ package controller;
 
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class LaporanController {
-    
+    // TODO
 }

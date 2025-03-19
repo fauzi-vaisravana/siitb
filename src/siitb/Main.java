@@ -8,7 +8,7 @@ package siitb;
 
 /**
  *
- * @author Fauzi
+ * @author Kelompok 2
  */
 public class Main {
 
