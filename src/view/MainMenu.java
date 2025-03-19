@@ -86,6 +86,11 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuMaster.add(jMenuItemSupplier);
 
         jMenuItemPelanggan.setText("Data Pelanggan");
+        jMenuItemPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPelangganActionPerformed(evt);
+            }
+        });
         jMenuMaster.add(jMenuItemPelanggan);
 
         jMenuBar1.add(jMenuMaster);
@@ -93,6 +98,11 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuTransaksi.setText("Transaksi");
 
         jMenuItemPembelian.setText("Pembelian");
+        jMenuItemPembelian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPembelianActionPerformed(evt);
+            }
+        });
         jMenuTransaksi.add(jMenuItemPembelian);
 
         jMenuItemPenjualan.setText("Penjualan");
@@ -104,6 +114,11 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuTransaksi.add(jMenuItemPenjualan);
 
         jMenuItemStok.setText("Stok Barang");
+        jMenuItemStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemStokActionPerformed(evt);
+            }
+        });
         jMenuTransaksi.add(jMenuItemStok);
 
         jMenuBar1.add(jMenuTransaksi);
@@ -135,6 +150,11 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuReport.add(jMenuItemLaporanPenjualan);
 
         jMenuItemLaporanStok.setText("Laporan Stok");
+        jMenuItemLaporanStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLaporanStokActionPerformed(evt);
+            }
+        });
         jMenuReport.add(jMenuItemLaporanStok);
 
         jMenuBar1.add(jMenuReport);
@@ -147,6 +167,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jMenuItemLogout.setText("Logout");
+        jMenuItemLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLogoutActionPerformed(evt);
+            }
+        });
         jMenuPengaturan.add(jMenuItemLogout);
 
         jMenuItemGantiPassword.setText("Ganti Password");
@@ -184,27 +209,39 @@ public class MainMenu extends javax.swing.JFrame {
 
     
     private void jMenuItemBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBarangActionPerformed
-        // TODO add your handling code here:
+        DataBarang dataBarang = new DataBarang(); // Membuat objek halaman Data Barang
+        dataBarang.setVisible(true); // Menampilkan halaman Data Barang
+        dataBarang.setLocationRelativeTo(null); // Memposisikan halaman di tengah layar
     }//GEN-LAST:event_jMenuItemBarangActionPerformed
 
     private void jMenuItemSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSupplierActionPerformed
-        // TODO add your handling code here:
+        DataSupplier datasupplier = new DataSupplier();
+        datasupplier.setVisible(true);
+        datasupplier.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemSupplierActionPerformed
 
     private void jMenuItemPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPenjualanActionPerformed
-        // TODO add your handling code here:
+        PenjualanForm penjualanform = new PenjualanForm();
+        penjualanform.setVisible(true);
+        penjualanform.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemPenjualanActionPerformed
 
     private void jMenuItemLaporanBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLaporanBarangActionPerformed
-        // TODO add your handling code here:
+        LaporanBarangForm laporanbarangform = new LaporanBarangForm();
+        laporanbarangform.setVisible(true);
+        laporanbarangform.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemLaporanBarangActionPerformed
 
     private void jMenuItemLaporanPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLaporanPembelianActionPerformed
-        // TODO add your handling code here:
+        LaporanPembelianForm laporanpembelianform = new LaporanPembelianForm();
+        laporanpembelianform.setVisible(true);
+        laporanpembelianform.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemLaporanPembelianActionPerformed
 
     private void jMenuItemLaporanPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLaporanPenjualanActionPerformed
-        // TODO add your handling code here:
+        LaporanPenjualanForm laporanPenjualanform = new LaporanPenjualanForm();
+        laporanPenjualanform.setVisible(true);
+        laporanPenjualanform.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemLaporanPenjualanActionPerformed
 
     private void jMenuPengaturanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPengaturanActionPerformed
@@ -214,6 +251,34 @@ public class MainMenu extends javax.swing.JFrame {
     private void jMenuItemGantiPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGantiPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemGantiPasswordActionPerformed
+
+    private void jMenuItemPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPelangganActionPerformed
+        DataPelanggan datapelanggan = new DataPelanggan();
+        datapelanggan.setVisible(true);
+        datapelanggan.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItemPelangganActionPerformed
+
+    private void jMenuItemPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPembelianActionPerformed
+        PembelianForm pembelianform = new PembelianForm();
+        pembelianform.setVisible(true);
+        pembelianform.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItemPembelianActionPerformed
+
+    private void jMenuItemStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStokActionPerformed
+        StokForm stokform = new StokForm();
+        stokform.setVisible(true);
+        stokform.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItemStokActionPerformed
+
+    private void jMenuItemLaporanStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLaporanStokActionPerformed
+        LaporanStokForm laporanstokform = new LaporanStokForm();
+        laporanstokform.setVisible(true);
+        laporanstokform.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItemLaporanStokActionPerformed
+
+    private void jMenuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemLogoutActionPerformed
 
     /**
      * @param args the command line arguments
