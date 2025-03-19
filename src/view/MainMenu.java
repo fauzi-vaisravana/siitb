@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import login.loginform;
+import login.logoutform;
 /**
  *
  * @author Fauzi
@@ -277,7 +278,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemLaporanStokActionPerformed
 
     private void jMenuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogoutActionPerformed
-        // TODO add your handling code here:
+        logoutform logoutform = new logoutform();
+        logoutform.setVisible(true);
+        logoutform.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemLogoutActionPerformed
 
     /**
