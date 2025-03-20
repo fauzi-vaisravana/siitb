@@ -5,6 +5,8 @@
  */
 package login;
 
+import view.MainMenu;
+
 /**
  *
  * @author Kelompok 2
@@ -43,6 +45,11 @@ public class logoutform extends javax.swing.JFrame {
         });
 
         jButtonBatal.setText("Tidak");
+        jButtonBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBatalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +82,20 @@ public class logoutform extends javax.swing.JFrame {
 
     private void jButtonYaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonYaActionPerformed
         // TODO add your handling code here:
+        
+        loginform out = new loginform();
+        out.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_jButtonYaActionPerformed
+
+    private void jButtonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBatalActionPerformed
+        // TODO add your handling code here:
+        MainMenu back = new MainMenu();
+        back.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jButtonBatalActionPerformed
 
     /**
      * @param args the command line arguments

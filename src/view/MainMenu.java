@@ -281,6 +281,7 @@ public class MainMenu extends javax.swing.JFrame {
         logoutform logoutform = new logoutform();
         logoutform.setVisible(true);
         logoutform.setLocationRelativeTo(null);
+        dispose();
     }//GEN-LAST:event_jMenuItemLogoutActionPerformed
 
     /**
