@@ -123,7 +123,7 @@ public class loginform extends javax.swing.JFrame {
         getContentPane().add(buttoncloselogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 16, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/bg_besi.jpeg"))); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 460));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 790, 470));
 
         pack();
         setLocationRelativeTo(null);
