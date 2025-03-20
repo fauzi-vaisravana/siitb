@@ -32,17 +32,23 @@ public class logoutform extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButtonYa = new javax.swing.JButton();
         jButtonBatal = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Apakah anda yakin akan keluar?");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, -1, -1));
 
-        jButtonYa.setText("Ya");
+        jButtonYa.setText("Ya Keluar");
         jButtonYa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonYaActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonYa, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 150, 70));
 
         jButtonBatal.setText("Tidak");
         jButtonBatal.addActionListener(new java.awt.event.ActionListener() {
@@ -50,34 +56,13 @@ public class logoutform extends javax.swing.JFrame {
                 jButtonBatalActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonBatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 210, 120, 70));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(289, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonBatal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonYa))
-                    .addComponent(jLabel1))
-                .addGap(286, 286, 286))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(jLabel1)
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonYa)
-                    .addComponent(jButtonBatal))
-                .addContainerGap(243, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/bg_besi.jpeg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 450));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonYaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonYaActionPerformed
@@ -136,5 +121,6 @@ public class logoutform extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBatal;
     private javax.swing.JButton jButtonYa;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
