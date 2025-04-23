@@ -30,13 +30,13 @@ public class StokForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        txt_jml = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        txt_tgl = new javax.swing.JLabel();
+        txt_brg = new javax.swing.JLabel();
         txt_kdbrng = new javax.swing.JTextField();
         txt_nmbrng = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        txt_tp = new javax.swing.JLabel();
+        txt_tgl = new javax.swing.JLabel();
         txt_stok = new javax.swing.JTextField();
         txt_harga = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -74,11 +74,11 @@ public class StokForm extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        jLabel2.setText("Jumlah");
+        txt_jml.setText("Jumlah");
 
-        txt_tgl.setText("Nama Barang");
+        txt_brg.setText("Nama Barang");
 
-        jLabel5.setText("Jenis");
+        txt_tp.setText("Tipe");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -86,13 +86,13 @@ public class StokForm extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_tgl)
+                .addComponent(txt_brg)
                 .addGap(46, 46, 46)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txt_nmbrng, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(txt_kdbrng))
                 .addGap(99, 99, 99)
-                .addComponent(jLabel5)
+                .addComponent(txt_tp)
                 .addContainerGap(275, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -100,16 +100,16 @@ public class StokForm extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_tgl)
+                    .addComponent(txt_brg)
                     .addComponent(txt_kdbrng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_nmbrng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(txt_tp))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        jLabel4.setText("Tanggal");
+        txt_tgl.setText("Tanggal");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -119,11 +119,11 @@ public class StokForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
+                        .addComponent(txt_jml)
                         .addGap(48, 48, 48))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel4)
+                        .addComponent(txt_tgl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txt_stok)
@@ -140,11 +140,11 @@ public class StokForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(txt_jml)
                     .addComponent(txt_stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(txt_tgl)
                     .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +200,7 @@ public class StokForm extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Nama Barang", "Tanggal", "Jumlah", "Jenis"
+                "Nama Barang", "Tanggal", "Jumlah", "Tipe"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -303,9 +303,6 @@ public class StokForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -314,8 +311,10 @@ public class StokForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton txt_bersihkan;
+    private javax.swing.JLabel txt_brg;
     private javax.swing.JButton txt_hapus;
     private javax.swing.JTextField txt_harga;
+    private javax.swing.JLabel txt_jml;
     private javax.swing.JTextField txt_kdbrng;
     private javax.swing.JButton txt_logout;
     private javax.swing.JTextField txt_nmbrng;
@@ -323,5 +322,6 @@ public class StokForm extends javax.swing.JFrame {
     private javax.swing.JButton txt_simpan;
     private javax.swing.JTextField txt_stok;
     private javax.swing.JLabel txt_tgl;
+    private javax.swing.JLabel txt_tp;
     // End of variables declaration//GEN-END:variables
 }
