@@ -5,6 +5,7 @@
  */
 package view;
 
+
 /**
  *
  * @author Kelompok 2
@@ -34,9 +35,9 @@ public class StokForm extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         txt_brg = new javax.swing.JLabel();
         txt_kdbrng = new javax.swing.JTextField();
-        txt_nmbrng = new javax.swing.JTextField();
         txt_tp = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         txt_tgl = new javax.swing.JLabel();
         txt_stok = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -91,8 +92,8 @@ public class StokForm extends javax.swing.JFrame {
                 .addComponent(txt_brg)
                 .addGap(46, 46, 46)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_nmbrng, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                    .addComponent(txt_kdbrng))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(txt_kdbrng, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
                 .addGap(99, 99, 99)
                 .addComponent(txt_tp)
                 .addGap(60, 60, 60)
@@ -107,10 +108,11 @@ public class StokForm extends javax.swing.JFrame {
                     .addComponent(txt_brg)
                     .addComponent(txt_kdbrng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_nmbrng, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_tp)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_tp)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -304,6 +306,7 @@ public class StokForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -318,7 +321,6 @@ public class StokForm extends javax.swing.JFrame {
     private javax.swing.JLabel txt_jml;
     private javax.swing.JTextField txt_kdbrng;
     private javax.swing.JButton txt_logout;
-    private javax.swing.JTextField txt_nmbrng;
     private javax.swing.JButton txt_perubahan;
     private javax.swing.JButton txt_simpan;
     private javax.swing.JTextField txt_stok;

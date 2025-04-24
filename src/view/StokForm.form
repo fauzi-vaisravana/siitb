@@ -162,8 +162,8 @@
                       <Component id="txt_brg" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txt_nmbrng" pref="204" max="32767" attributes="0"/>
-                          <Component id="txt_kdbrng" max="32767" attributes="0"/>
+                          <Component id="jDateChooser1" pref="204" max="32767" attributes="0"/>
+                          <Component id="txt_kdbrng" pref="204" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                       <Component id="txt_tp" min="-2" max="-2" attributes="0"/>
@@ -182,10 +182,12 @@
                           <Component id="txt_kdbrng" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txt_nmbrng" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_tp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txt_tp" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
                   </Group>
@@ -199,8 +201,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_kdbrng">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txt_nmbrng">
             </Component>
             <Component class="javax.swing.JLabel" name="txt_tp">
               <Properties>
@@ -221,6 +221,8 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
             </Component>
           </SubComponents>
         </Container>
