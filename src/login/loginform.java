@@ -69,10 +69,10 @@ public class loginform extends javax.swing.JFrame {
         jLabel1.setText("Silahkan Login Terlebih Dahulu");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, -1, 65));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Sistem Informasi Inventori Toko Besi");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 65, 689, -1));
+        jLabel2.setText("Perancangan aplikasi rekapitulasi barang jakarta besi");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 689, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,7 +111,6 @@ public class loginform extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("SIITB");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(359, 118, -1, -1));
 
         buttoncloselogin.setText("X");
