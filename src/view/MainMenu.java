@@ -63,7 +63,7 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setText("WHAREHOUSE TOKO JAKARTA BESI");
+        jLabel2.setText("WAREHOUSE TOKO JAKARTA BESI");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 420, 130));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
