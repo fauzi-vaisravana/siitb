@@ -197,6 +197,11 @@ public class DataSupplier extends javax.swing.JFrame {
                 "Kode Supplier", "Nama Supplier", "Alamat", "No Telp"
             }
         ));
+        tabelSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelSupplierMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabelSupplier);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -383,6 +388,16 @@ public class DataSupplier extends javax.swing.JFrame {
             refreshTable();
         }
     }//GEN-LAST:event_hapusSupplierActionPerformed
+
+    private void tabelSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelSupplierMouseClicked
+        int selectedRow = tabelSupplier.getSelectedRow();
+        if (selectedRow != -1) {
+            txtKodeSupplier.setText(tabelSupplier.getValueAt(selectedRow, 0).toString());
+            txtNamaSupplier.setText(tabelSupplier.getValueAt(selectedRow, 1).toString());
+            txtAlamat.setText(tabelSupplier.getValueAt(selectedRow, 2).toString());
+            txtNoTelp.setText(tabelSupplier.getValueAt(selectedRow, 3).toString());
+        }   
+    }//GEN-LAST:event_tabelSupplierMouseClicked
 
     private void clearForm() {
         txtKodeSupplier.setText("");

@@ -523,17 +523,17 @@ public class DataBarang extends javax.swing.JFrame {
         int selectedRow = tabelBarang.getSelectedRow();
         if (selectedRow != -1) {
         // Ambil data dari baris yang dipilih
-        String kodeBarang = tabelBarang.getValueAt(selectedRow, 0).toString();
-        String namaBarang = tabelBarang.getValueAt(selectedRow, 1).toString();
-        String stok = tabelBarang.getValueAt(selectedRow, 2).toString();
-        String harga = tabelBarang.getValueAt(selectedRow, 3).toString();
-        
-        // Isi form dengan data yang dipilih (sesuaikan nama field)
-        txtKodeBarang.setText(kodeBarang);
-        txtNamaBarang.setText(namaBarang);
-        txtStok.setText(stok);
-        txtHarga.setText(harga);
-    }
+            String kodeBarang = tabelBarang.getValueAt(selectedRow, 0).toString();
+            String namaBarang = tabelBarang.getValueAt(selectedRow, 1).toString();
+            String stok = tabelBarang.getValueAt(selectedRow, 2).toString();
+            String harga = tabelBarang.getValueAt(selectedRow, 3).toString();
+
+            // Isi form dengan data yang dipilih (sesuaikan nama field)
+            txtKodeBarang.setText(kodeBarang);
+            txtNamaBarang.setText(namaBarang);
+            txtStok.setText(stok);
+            txtHarga.setText(harga);
+        }   
     }//GEN-LAST:event_tabelBarangMouseClicked
 
     private void clearForm() {

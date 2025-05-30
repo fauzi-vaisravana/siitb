@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package view;
-
+import koneksi.koneksidatabase;
+import model.Pelanggan;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;  
+import javax.swing.ListSelectionModel;       
+import java.text.DecimalFormat;    
 /**
  *
  * @author Kelompok 2
@@ -12,10 +20,11 @@ package view;
 public class DataPelanggan extends javax.swing.JFrame {
 
     /**
-     * Creates new form Penjualan
+     * Creates new form Pelanggan
      */
     public DataPelanggan() {
         initComponents();
+        refreshTable();
     }
 
     /**
@@ -34,21 +43,21 @@ public class DataPelanggan extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtKodePelanggan = new javax.swing.JTextField();
+        txtNamaPelanggan = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtAlamat = new javax.swing.JTextArea();
+        txtNoTelp = new javax.swing.JTextField();
+        tambahPelanggan = new javax.swing.JButton();
+        editPelanggan = new javax.swing.JButton();
+        hapusPelanggan = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelPelanggan = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,21 +77,21 @@ public class DataPelanggan extends javax.swing.JFrame {
 
         jLabel5.setText("No Telp");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtKodePelanggan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtKodePelangganActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtNamaPelanggan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtNamaPelangganActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAlamat.setColumns(20);
+        txtAlamat.setRows(5);
+        jScrollPane1.setViewportView(txtAlamat);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -95,8 +104,8 @@ public class DataPelanggan extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(txtKodePelanggan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -104,7 +113,7 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                    .addComponent(jTextField3))
+                    .addComponent(txtNoTelp))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -116,24 +125,39 @@ public class DataPelanggan extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtKodePelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNoTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jButton1.setText("Tambah");
+        tambahPelanggan.setText("Tambah");
+        tambahPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahPelangganActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Edit");
+        editPelanggan.setText("Edit");
+        editPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editPelangganActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Hapus");
+        hapusPelanggan.setText("Hapus");
+        hapusPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusPelangganActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Cari");
 
@@ -163,7 +187,7 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelPelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -174,7 +198,12 @@ public class DataPelanggan extends javax.swing.JFrame {
                 "Kode Pelanggan", "Nama Pelanggan", "Alamat", "No Telp"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        tabelPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelPelangganMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelPelanggan);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -208,11 +237,11 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(148, 148, 148)
-                        .addComponent(jButton1)
+                        .addComponent(tambahPelanggan)
                         .addGap(99, 99, 99)
-                        .addComponent(jButton2)
+                        .addComponent(editPelanggan)
                         .addGap(102, 102, 102)
-                        .addComponent(jButton3)
+                        .addComponent(hapusPelanggan)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -238,9 +267,9 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(tambahPelanggan)
+                    .addComponent(editPelanggan)
+                    .addComponent(hapusPelanggan))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -260,19 +289,171 @@ public class DataPelanggan extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    public boolean tambahPelanggan(Pelanggan p) {
+        String sql = "INSERT INTO pelanggan (kode_pelanggan, nama_pelanggan, alamat, no_telp) VALUES (?, ?, ?, ?)";
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, p.getKodePelanggan());
+            pst.setString(2, p.getNamaPelanggan());
+            pst.setString(3, p.getAlamat());
+            pst.setString(4, p.getNoTelp());
+
+            return pst.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Tambah Pelanggan: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean editPelanggan(Pelanggan p) {
+        String sql = "UPDATE pelanggan SET nama_pelanggan = ?, alamat = ?, no_telp = ? WHERE kode_pelanggan = ?";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, p.getNamaPelanggan());
+            pst.setString(2, p.getAlamat());
+            pst.setString(3, p.getNoTelp());
+            pst.setString(4, p.getKodePelanggan());
+
+            return pst.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Edit Pelanggan: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean hapusPelanggan(String kode) {
+        String sql = "DELETE FROM pelanggan WHERE kode_pelanggan = ?";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, kode);
+            return pst.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Hapus Pelanggan: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    private void txtKodePelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodePelangganActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtKodePelangganActionPerformed
+
+    private void txtNamaPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaPelangganActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaPelangganActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void tambahPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahPelangganActionPerformed
+        Pelanggan p = new Pelanggan(txtKodePelanggan.getText(), txtNamaPelanggan.getText(), txtAlamat.getText(), txtNoTelp.getText());
+
+        if (tambahPelanggan(p)) {
+            JOptionPane.showMessageDialog(null, "Pelanggan berhasil ditambahkan!");
+            clearForm();
+            refreshTable();
+        }
+    }//GEN-LAST:event_tambahPelangganActionPerformed
+
+    private void editPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPelangganActionPerformed
+        Pelanggan p = new Pelanggan(txtKodePelanggan.getText(), txtNamaPelanggan.getText(), txtAlamat.getText(), txtNoTelp.getText());
+
+        if (editPelanggan(p)) {
+            JOptionPane.showMessageDialog(null, "Pelanggan berhasil diupdate!");
+            clearForm();
+            refreshTable();
+        }
+    }//GEN-LAST:event_editPelangganActionPerformed
+
+    private void hapusPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusPelangganActionPerformed
+        if (hapusPelanggan(txtKodePelanggan.getText())) {
+            JOptionPane.showMessageDialog(null, "Pelanggan berhasil dihapus!");
+            clearForm();
+            refreshTable();
+        }
+    }//GEN-LAST:event_hapusPelangganActionPerformed
+
+    private void tabelPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPelangganMouseClicked
+        int selectedRow = tabelPelanggan.getSelectedRow();
+            if (selectedRow != -1) {
+                txtKodePelanggan.setText(tabelPelanggan.getValueAt(selectedRow, 0).toString());
+                txtNamaPelanggan.setText(tabelPelanggan.getValueAt(selectedRow, 1).toString());
+                txtAlamat.setText(tabelPelanggan.getValueAt(selectedRow, 2).toString());
+                txtNoTelp.setText(tabelPelanggan.getValueAt(selectedRow, 3).toString());
+            }  
+    }//GEN-LAST:event_tabelPelangganMouseClicked
+
+    private void clearForm() {
+        txtKodePelanggan.setText("");
+        txtNamaPelanggan.setText("");
+        txtAlamat.setText("");
+        txtNoTelp.setText("");
+    }
+
+    public List<Pelanggan> getAllPelanggan() {
+        List<Pelanggan> list = new ArrayList<>();
+        String sql = "SELECT * FROM pelanggan";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                list.add(new Pelanggan(
+                    rs.getString("kode_pelanggan"),
+                    rs.getString("nama_pelanggan"),
+                    rs.getString("alamat"),
+                    rs.getString("no_telp")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Mengambil Data Pelanggan: " + e.getMessage());
+        }
+
+        return list;
+    }
+
+    private void loadDataToTable() {
+        List<Pelanggan> list = getAllPelanggan();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kode Pelanggan");
+        model.addColumn("Nama Pelanggan");
+        model.addColumn("Alamat");
+        model.addColumn("No. Telp");
+
+        for (Pelanggan p : list) {
+            model.addRow(new Object[] {
+                p.getKodePelanggan(), p.getNamaPelanggan(), p.getAlamat(), p.getNoTelp()
+            });
+        }
+
+        tabelPelanggan.setModel(model);
+        setColumnWidths();
+    }
+
+    private void setColumnWidths() {
+        tabelPelanggan.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tabelPelanggan.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabelPelanggan.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tabelPelanggan.getColumnModel().getColumn(3).setPreferredWidth(100);
+    }
+
+    private void refreshTable() {
+        loadDataToTable();
+    }
 
     /**
      * @param args the command line arguments
@@ -311,9 +492,8 @@ public class DataPelanggan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton editPelanggan;
+    private javax.swing.JButton hapusPelanggan;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -328,11 +508,12 @@ public class DataPelanggan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tabelPelanggan;
+    private javax.swing.JButton tambahPelanggan;
+    private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JTextField txtKodePelanggan;
+    private javax.swing.JTextField txtNamaPelanggan;
+    private javax.swing.JTextField txtNoTelp;
     // End of variables declaration//GEN-END:variables
 }
