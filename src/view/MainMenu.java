@@ -103,7 +103,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenuTransaksi.setText("Transaksi");
 
-        jMenuItemPembelian.setText("Pembelian");
+        jMenuItemPembelian.setText("Mitra");
         jMenuItemPembelian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPembelianActionPerformed(evt);
@@ -222,7 +222,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemLaporanBarangActionPerformed
 
     private void jMenuItemLaporanPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLaporanPembelianActionPerformed
-        LaporanPembelianForm laporanpembelianform = new LaporanPembelianForm();
+        LaporanMitraForm laporanpembelianform = new LaporanMitraForm();
         laporanpembelianform.setVisible(true);
         laporanpembelianform.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemLaporanPembelianActionPerformed
@@ -248,7 +248,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemPelangganActionPerformed
 
     private void jMenuItemPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPembelianActionPerformed
-        PembelianForm pembelianform = new PembelianForm();
+        MitraPembelianForm pembelianform = new MitraPembelianForm();
         pembelianform.setVisible(true);
         pembelianform.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItemPembelianActionPerformed
