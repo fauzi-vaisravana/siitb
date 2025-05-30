@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package view;
-
+import koneksi.koneksidatabase;
+import model.Supplier;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;  
+import javax.swing.ListSelectionModel;       
+import java.text.DecimalFormat; 
 /**
  *
  * @author Kelompok 2
@@ -16,6 +24,7 @@ public class DataSupplier extends javax.swing.JFrame {
      */
     public DataSupplier() {
         initComponents();
+        refreshTable();
     }
 
     /**
@@ -34,21 +43,21 @@ public class DataSupplier extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtKodeSupplier = new javax.swing.JTextField();
+        txtNamaSupplier = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtAlamat = new javax.swing.JTextArea();
+        txtNoTelp = new javax.swing.JTextField();
+        tambahSupplier = new javax.swing.JButton();
+        editSupplier = new javax.swing.JButton();
+        hapusSupplier = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelSupplier = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,21 +76,21 @@ public class DataSupplier extends javax.swing.JFrame {
 
         jLabel5.setText("No Telp");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtKodeSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtKodeSupplierActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtNamaSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtNamaSupplierActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAlamat.setColumns(20);
+        txtAlamat.setRows(5);
+        jScrollPane1.setViewportView(txtAlamat);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -94,8 +103,8 @@ public class DataSupplier extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
+                    .addComponent(txtKodeSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(txtNamaSupplier))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -103,7 +112,7 @@ public class DataSupplier extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                    .addComponent(jTextField3))
+                    .addComponent(txtNoTelp))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -115,24 +124,39 @@ public class DataSupplier extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtKodeSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNamaSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNoTelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jButton1.setText("Tambah");
+        tambahSupplier.setText("Tambah");
+        tambahSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahSupplierActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Edit");
+        editSupplier.setText("Edit");
+        editSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editSupplierActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Hapus");
+        hapusSupplier.setText("Hapus");
+        hapusSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusSupplierActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Cari");
 
@@ -162,7 +186,7 @@ public class DataSupplier extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -173,7 +197,7 @@ public class DataSupplier extends javax.swing.JFrame {
                 "Kode Supplier", "Nama Supplier", "Alamat", "No Telp"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tabelSupplier);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -207,11 +231,11 @@ public class DataSupplier extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(256, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(tambahSupplier)
                         .addGap(122, 122, 122)
-                        .addComponent(jButton2)
+                        .addComponent(editSupplier)
                         .addGap(113, 113, 113)
-                        .addComponent(jButton3)
+                        .addComponent(hapusSupplier)
                         .addGap(233, 233, 233))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -237,9 +261,9 @@ public class DataSupplier extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(tambahSupplier)
+                    .addComponent(editSupplier)
+                    .addComponent(hapusSupplier))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -262,17 +286,163 @@ public class DataSupplier extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    public boolean tambahSupplier(Supplier supplier) {
+        String sql = "INSERT INTO supplier (kode_supplier, nama_supplier, alamat, no_telp) VALUES (?, ?, ?, ?)";
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, supplier.getKodeSupplier());
+            pst.setString(2, supplier.getNamaSupplier());
+            pst.setString(3, supplier.getAlamat());
+            pst.setString(4, supplier.getNoTelp());
+
+            return pst.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Tambah Supplier: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean editSupplier(Supplier supplier) {
+        String sql = "UPDATE supplier SET nama_supplier = ?, alamat = ?, no_telp = ? WHERE kode_supplier = ?";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, supplier.getNamaSupplier());
+            pst.setString(2, supplier.getAlamat());
+            pst.setString(3, supplier.getNoTelp());
+            pst.setString(4, supplier.getKodeSupplier());
+
+            return pst.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Edit Supplier: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean hapusSupplier(String kodeSupplier) {
+        String sql = "DELETE FROM supplier WHERE kode_supplier = ?";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, kodeSupplier);
+            return pst.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Hapus Supplier: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+
+    
+    private void txtKodeSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeSupplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtKodeSupplierActionPerformed
+
+    private void txtNamaSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaSupplierActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaSupplierActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void tambahSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahSupplierActionPerformed
+        Supplier s = new Supplier(txtKodeSupplier.getText(), txtNamaSupplier.getText(), 
+                                  txtAlamat.getText(), txtNoTelp.getText());
+
+        if (tambahSupplier(s)) {
+            JOptionPane.showMessageDialog(null, "Supplier berhasil ditambahkan!");
+            clearForm();
+            refreshTable();
+        }
+    }//GEN-LAST:event_tambahSupplierActionPerformed
+
+    private void editSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSupplierActionPerformed
+        Supplier s = new Supplier(txtKodeSupplier.getText(), txtNamaSupplier.getText(), 
+                txtAlamat.getText(), txtNoTelp.getText());
+
+        if (editSupplier(s)) {
+            JOptionPane.showMessageDialog(null, "Supplier berhasil diupdate!");
+            clearForm();
+            refreshTable();
+        }
+    }//GEN-LAST:event_editSupplierActionPerformed
+
+    private void hapusSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusSupplierActionPerformed
+            if (hapusSupplier(txtKodeSupplier.getText())) {
+            JOptionPane.showMessageDialog(null, "Supplier berhasil dihapus!");
+            clearForm();
+            refreshTable();
+        }
+    }//GEN-LAST:event_hapusSupplierActionPerformed
+
+    private void clearForm() {
+        txtKodeSupplier.setText("");
+        txtNamaSupplier.setText("");
+        txtAlamat.setText("");
+        txtNoTelp.setText("");
+    }
+
+    public List<Supplier> getAllSupplier() {
+        List<Supplier> list = new ArrayList<>();
+        String sql = "SELECT * FROM supplier";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                list.add(new Supplier(
+                    rs.getString("kode_supplier"),
+                    rs.getString("nama_supplier"),
+                    rs.getString("alamat"),
+                    rs.getString("no_telp")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Mengambil Data Supplier: " + e.getMessage());
+        }
+
+        return list;
+    }
+
+    private void loadDataToTable() {
+        List<Supplier> list = getAllSupplier();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kode Supplier");
+        model.addColumn("Nama Supplier");
+        model.addColumn("Alamat");
+        model.addColumn("No. Telp");
+
+        for (Supplier s : list) {
+            model.addRow(new Object[] {
+                s.getKodeSupplier(), s.getNamaSupplier(), s.getAlamat(), s.getNoTelp()
+            });
+        }
+
+        tabelSupplier.setModel(model);
+        setColumnWidths();
+    }
+
+    private void setColumnWidths() {
+        tabelSupplier.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tabelSupplier.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabelSupplier.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tabelSupplier.getColumnModel().getColumn(3).setPreferredWidth(100);
+    }
+
+    private void refreshTable() {
+        loadDataToTable();
+    }
 
     /**
      * @param args the command line arguments
@@ -311,9 +481,8 @@ public class DataSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton editSupplier;
+    private javax.swing.JButton hapusSupplier;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -328,11 +497,12 @@ public class DataSupplier extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tabelSupplier;
+    private javax.swing.JButton tambahSupplier;
+    private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JTextField txtKodeSupplier;
+    private javax.swing.JTextField txtNamaSupplier;
+    private javax.swing.JTextField txtNoTelp;
     // End of variables declaration//GEN-END:variables
 }
