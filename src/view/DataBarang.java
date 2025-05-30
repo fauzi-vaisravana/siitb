@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package view;
-
+import koneksi.koneksidatabase;
+import model.Barang;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;  
+import javax.swing.ListSelectionModel;       
+import java.text.DecimalFormat;             
 /**
  *
  * @author Kelompok 2
@@ -16,6 +24,7 @@ public class DataBarang extends javax.swing.JFrame {
      */
     public DataBarang() {
         initComponents();
+        refreshTable();
     }
 
     /**
@@ -34,10 +43,10 @@ public class DataBarang extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtKodeBarang = new javax.swing.JTextField();
+        txtNamaBarang = new javax.swing.JTextField();
+        txtStok = new javax.swing.JTextField();
+        txtHarga = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -47,7 +56,7 @@ public class DataBarang extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelBarang = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,7 +77,7 @@ public class DataBarang extends javax.swing.JFrame {
 
         jLabel5.setText("Harga");
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(6, 26));
+        txtKodeBarang.setPreferredSize(new java.awt.Dimension(6, 26));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -81,16 +90,16 @@ public class DataBarang extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtNamaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                    .addComponent(txtKodeBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addComponent(jTextField4))
+                    .addComponent(txtStok, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .addComponent(txtHarga))
                 .addGap(48, 48, 48))
         );
         jPanel2Layout.setVerticalGroup(
@@ -100,22 +109,37 @@ public class DataBarang extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jButton1.setText("Tambah");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Edit");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Hapus");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jPanel3.setPreferredSize(new java.awt.Dimension(791, 186));
 
@@ -149,7 +173,7 @@ public class DataBarang extends javax.swing.JFrame {
 
         jPanel4.setPreferredSize(new java.awt.Dimension(791, 186));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -160,7 +184,12 @@ public class DataBarang extends javax.swing.JFrame {
                 "Kode Barang", "Nama Barang", "Stok", "Harga"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabelBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelBarangMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelBarang);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -257,10 +286,350 @@ public class DataBarang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean tambahBarang(Barang barang) {
+        String sql = "INSERT INTO barang (kode_barang, nama_barang, stok, harga) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
+                return false;
+            }
+
+            pst.setString(1, barang.getKodeBarang());
+            pst.setString(2, barang.getNamaBarang());
+            pst.setInt(3, barang.getStok());
+            pst.setDouble(4, barang.getHarga());
+
+            return pst.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
+            System.err.println("Gagal Menambah Barang: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String kodeBarang = txtKodeBarang.getText();
+        String namaBarang = txtNamaBarang.getText();
+        int stok = Integer.parseInt(txtStok.getText());
+        double harga = Double.parseDouble(txtHarga.getText());
+
+        Barang barang = new Barang(kodeBarang, namaBarang, stok, harga);
+
+        // Panggil method tambahBarang dengan parameter
+        if (tambahBarang(barang)) {
+            JOptionPane.showMessageDialog(null, "Barang berhasil ditambahkan!");
+            // Clear form setelah berhasil
+            clearForm();
+            refreshTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal menambahkan barang!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public boolean hapusBarang(String kodeBarang) {
+        String sql = "DELETE FROM barang WHERE kode_barang = ?";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
+                return false;
+            }
+
+            pst.setString(1, kodeBarang);
+            return pst.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Gagal Menghapus Barang: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+        // Pilihan 1: Ambil dari JTextField
+        String kodeBarang = txtKodeBarang.getText().trim();
+        
+        // Pilihan 2: Ambil dari JTable (jika ada)
+        /*
+        int selectedRow = tabelBarang.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Pilih barang yang akan dihapus!");
+            return;
+        }
+        String kodeBarang = tabelBarang.getValueAt(selectedRow, 0).toString();
+        */
+        
+        // Validasi
+        if (kodeBarang.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Pilih atau masukkan kode barang yang akan dihapus!");
+            return;
+        }
+        
+        // Konfirmasi hapus dengan detail barang
+        int konfirmasi = JOptionPane.showConfirmDialog(
+            null,
+            "Yakin ingin menghapus barang?\n" +
+            "Kode Barang: " + kodeBarang + "\n" +
+            "Data yang dihapus tidak dapat dikembalikan!",
+            "Konfirmasi Hapus Barang",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+        
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+            if (hapusBarang(kodeBarang)) {
+                JOptionPane.showMessageDialog(null, 
+                    "Barang dengan kode " + kodeBarang + " berhasil dihapus!",
+                    "Hapus Berhasil",
+                    JOptionPane.INFORMATION_MESSAGE);
+                clearForm();
+                refreshTable();
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                    "Gagal menghapus barang!\nPastikan kode barang benar dan ada di database.",
+                    "Hapus Gagal",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, 
+            "Terjadi kesalahan: " + e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    // UPDATE: Edit data barang
+    public boolean editBarang(Barang barang) {
+        String sql = "UPDATE barang SET nama_barang = ?, harga = ?, stok = ? WHERE kode_barang = ?";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
+                return false;
+            }
+
+            pst.setString(1, barang.getNamaBarang());
+            pst.setDouble(2, barang.getHarga());
+            pst.setInt(3, barang.getStok());
+            pst.setString(4, barang.getKodeBarang());
+
+            return pst.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Mengedit Barang: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+        // Ambil data dari form
+        String kodeBarang = txtKodeBarang.getText().trim();
+        String namaBarang = txtNamaBarang.getText().trim();
+        String stokText = txtStok.getText().trim();
+        String hargaText = txtHarga.getText().trim();
+
+        
+        // Validasi input tidak kosong
+        if (kodeBarang.isEmpty() || namaBarang.isEmpty() || 
+            hargaText.isEmpty() || stokText.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+            return;
+        }
+        
+        // Parse dan validasi harga
+        double harga;
+        try {
+            harga = Double.parseDouble(hargaText);
+            if (harga < 0) {
+                JOptionPane.showMessageDialog(null, "Harga tidak boleh negatif!");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Format harga tidak valid! Gunakan angka desimal.");
+            return;
+        }
+        
+        // Parse dan validasi stok
+        int stok;
+        try {
+            stok = Integer.parseInt(stokText);
+            if (stok < 0) {
+                JOptionPane.showMessageDialog(null, "Stok tidak boleh negatif!");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Format stok tidak valid! Gunakan angka bulat.");
+            return;
+        }
+        
+        // Konfirmasi edit
+        int konfirmasi = JOptionPane.showConfirmDialog(
+            null,
+            "Apakah Anda yakin ingin mengubah data barang?\n" +
+            "Kode: " + kodeBarang + "\n" +
+            "Nama: " + namaBarang + "\n" +
+            "Harga: " + harga + "\n" +
+            "Stok: " + stok,
+            "Konfirmasi Edit",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+            // Buat objek Barang
+            Barang barang = new Barang(kodeBarang, namaBarang, stok, harga);
+            
+            // Panggil method editBarang
+            if (editBarang(barang)) {
+                JOptionPane.showMessageDialog(null, 
+                    "Data barang berhasil diubah!",
+                    "Edit Berhasil",
+                    JOptionPane.INFORMATION_MESSAGE);
+                clearForm();
+                 refreshTable(); 
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                    "Gagal mengubah data barang!\nPastikan kode barang benar dan ada di database.",
+                    "Edit Gagal",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, 
+            "Terjadi kesalahan: " + e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tabelBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelBarangMouseClicked
+        int selectedRow = tabelBarang.getSelectedRow();
+        if (selectedRow != -1) {
+        // Ambil data dari baris yang dipilih
+        String kodeBarang = tabelBarang.getValueAt(selectedRow, 0).toString();
+        String namaBarang = tabelBarang.getValueAt(selectedRow, 1).toString();
+        String stok = tabelBarang.getValueAt(selectedRow, 2).toString();
+        String harga = tabelBarang.getValueAt(selectedRow, 3).toString();
+        
+        // Isi form dengan data yang dipilih (sesuaikan nama field)
+        txtKodeBarang.setText(kodeBarang);
+        txtNamaBarang.setText(namaBarang);
+        txtStok.setText(stok);
+        txtHarga.setText(harga);
+    }
+    }//GEN-LAST:event_tabelBarangMouseClicked
+
+    private void clearForm() {
+        txtKodeBarang.setText("");
+        txtNamaBarang.setText("");
+        txtStok.setText("");
+        txtHarga.setText("");
+    }
+    
+    // READ: Ambil semua data barang
+    public List<Barang> getAllBarang() {
+        List<Barang> listBarang = new ArrayList<>();
+        String sql = "SELECT * FROM barang";
+
+        try (Connection conn = koneksidatabase.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
+                return listBarang;
+            }
+
+            while (rs.next()) {
+                listBarang.add(new Barang(
+                    rs.getString("kode_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getInt("stok"),
+                    rs.getDouble("harga")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Gagal Mengambil Data Barang: " + e.getMessage());
+        }
+
+        return listBarang;
+    }
+    
+    // METHOD UTAMA: Untuk menampilkan data ke JTable
+    private void loadDataToTable() {
+    try {
+        // Ambil data dari database
+        List<Barang> listBarang = getAllBarang();
+        
+        // Buat model tabel
+        DefaultTableModel model = new DefaultTableModel();
+        
+        // Set kolom header
+        model.addColumn("Kode Barang");
+        model.addColumn("Nama Barang");
+        model.addColumn("Stok");
+        model.addColumn("Harga");
+        
+        // Tambahkan data ke model
+        for (Barang barang : listBarang) {
+            Object[] row = {
+                barang.getKodeBarang(),
+                barang.getNamaBarang(),
+                barang.getStok(),
+                String.format("%.2f", barang.getHarga()) // Format harga dengan 2 desimal
+            };
+            model.addRow(row);
+        }
+        
+        // Set model ke JTable
+        tabelBarang.setModel(model); 
+        
+        // Optional: Set lebar kolom
+        setColumnWidths();
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error memuat data: " + e.getMessage());
+        e.printStackTrace();
+    }
+    }
+
+    // Method untuk mengatur lebar kolom
+    private void setColumnWidths() {
+        if (tabelBarang.getColumnCount() > 0) {
+            tabelBarang.getColumnModel().getColumn(0).setPreferredWidth(100); // Kode Barang
+            tabelBarang.getColumnModel().getColumn(1).setPreferredWidth(200); // Nama Barang
+            tabelBarang.getColumnModel().getColumn(2).setPreferredWidth(80);  // Stok
+            tabelBarang.getColumnModel().getColumn(3).setPreferredWidth(100); // Harga
+        }
+    }
+
+    // Method untuk refresh tabel setelah operasi CRUD
+    private void refreshTable() {
+        loadDataToTable();
+    }
+
+    // IMPLEMENTASI: Load data saat form dibuka
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {
+        loadDataToTable();
+    }
     /**
      * @param args the command line arguments
      */
@@ -314,11 +683,11 @@ public class DataBarang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tabelBarang;
+    private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtKodeBarang;
+    private javax.swing.JTextField txtNamaBarang;
+    private javax.swing.JTextField txtStok;
     // End of variables declaration//GEN-END:variables
 }
