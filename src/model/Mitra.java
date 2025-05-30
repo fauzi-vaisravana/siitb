@@ -11,20 +11,25 @@ package model;
  */
 import java.util.Date;
 
-public class Pembelian {
+public class Mitra {
     private int idPembelian;
     private String kodeSupplier;
+    private String namaMitra;
     private String kodeBarang;
     private int jumlah;
     private double hargaSatuan;
     private double totalHarga;
     private Date tanggal;
 
-    public Pembelian() {}
+    // Konstruktor kosong
+    public Mitra() {}
 
-    public Pembelian(int idPembelian, String kodeSupplier, String kodeBarang, int jumlah, double hargaSatuan, double totalHarga, Date tanggal) {
+    // Konstruktor lengkap
+    public Mitra(int idPembelian, String kodeSupplier, String namaMitra, String kodeBarang,
+                 int jumlah, double hargaSatuan, double totalHarga, Date tanggal) {
         this.idPembelian = idPembelian;
         this.kodeSupplier = kodeSupplier;
+        this.namaMitra = namaMitra;
         this.kodeBarang = kodeBarang;
         this.jumlah = jumlah;
         this.hargaSatuan = hargaSatuan;
@@ -46,6 +51,14 @@ public class Pembelian {
 
     public void setKodeSupplier(String kodeSupplier) {
         this.kodeSupplier = kodeSupplier;
+    }
+
+    public String getNamaMitra() {
+        return namaMitra;
+    }
+
+    public void setNamaMitra(String namaMitra) {
+        this.namaMitra = namaMitra;
     }
 
     public String getKodeBarang() {
