@@ -49,7 +49,6 @@ public class StokForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        txt_logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,28 +221,15 @@ public class StokForm extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(70, 130, 180));
 
-        txt_logout.setText("Log out");
-        txt_logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_logoutActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txt_logout)
-                .addGap(368, 368, 368))
+            .addGap(0, 812, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(txt_logout)
-                .addContainerGap(29, Short.MAX_VALUE))
+            .addGap(0, 81, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,10 +262,6 @@ public class StokForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_logoutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_logoutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
@@ -337,7 +319,6 @@ public class StokForm extends javax.swing.JFrame {
     private javax.swing.JButton txt_hapus;
     private javax.swing.JLabel txt_jml;
     private javax.swing.JTextField txt_kdbrng;
-    private javax.swing.JButton txt_logout;
     private javax.swing.JButton txt_perubahan;
     private javax.swing.JButton txt_simpan;
     private javax.swing.JTextField txt_stok;
