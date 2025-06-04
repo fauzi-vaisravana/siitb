@@ -37,6 +37,15 @@ public class Mitra {
         this.tanggal = tanggal;
     }
 
+    public Mitra(String kodeSupplier, String namaMitra, String kodeBarang, int jumlah, double hargaSatuan, double totalHarga) {
+        this.kodeSupplier = kodeSupplier;
+        this.namaMitra = namaMitra;
+        this.kodeBarang = kodeBarang;
+        this.jumlah = jumlah;
+        this.hargaSatuan = hargaSatuan;
+        this.totalHarga = totalHarga;
+    }
+
     public int getIdPembelian() {
         return idPembelian;
     }

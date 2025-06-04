@@ -32,6 +32,14 @@ public class Penjualan {
         this.tanggal = tanggal;
     }
 
+    public Penjualan(String KodePelanggan, String kodeBarang, int jumlah, double harga, double total) {
+        this.kodePelanggan = KodePelanggan;
+        this.kodeBarang = kodeBarang;
+        this.jumlah = jumlah;
+        this.hargaSatuan = harga;
+        this.totalHarga = total;
+    }
+
     public int getIdPenjualan() {
         return idPenjualan;
     }
