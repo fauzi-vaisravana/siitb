@@ -353,7 +353,7 @@ public class MitraPembelianForm extends javax.swing.JFrame {
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, kode);
             ResultSet rs = pst.executeQuery();
-
+    
             if (rs.next()) {
                 txtNamaMitra.setText(rs.getString("nama_supplier"));
             } else {
