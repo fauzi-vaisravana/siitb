@@ -10,7 +10,7 @@ package view;
  * @author Kelompok 2
  */
 public class LaporanStokForm extends javax.swing.JFrame {
-
+ 
     /**
      * Creates new form LaporanStokForm
      */
