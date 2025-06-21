@@ -531,6 +531,8 @@ public class MitraPembelianForm extends javax.swing.JFrame {
         totalHarga.setText("");
     }
 
+    
+    
     public List<Mitra> getAllPembelian() {
         List<Mitra> list = new ArrayList<>();
         String sql = "SELECT * FROM mitra";
