@@ -52,8 +52,8 @@ public class DataSupplier extends javax.swing.JFrame {
         editSupplier = new javax.swing.JButton();
         hapusSupplier = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
+        cari = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -162,7 +162,12 @@ public class DataSupplier extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Cari");
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Cari Data Supplier");
 
@@ -174,9 +179,9 @@ public class DataSupplier extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btnCari)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -184,8 +189,8 @@ public class DataSupplier extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCari)
+                    .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addContainerGap())
         );
@@ -403,6 +408,44 @@ public class DataSupplier extends javax.swing.JFrame {
         }   
     }//GEN-LAST:event_tabelSupplierMouseClicked
 
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        String keyword = cari.getText().trim();
+        cariDataPenjualan(keyword);
+    }//GEN-LAST:event_btnCariActionPerformed
+
+     private void cariDataPenjualan(String keyword) {
+    DefaultTableModel model = (DefaultTableModel) tabelSupplier.getModel();
+    model.setRowCount(0); // Bersihkan isi tabel sebelum diisi ulang
+
+    String sql = "SELECT * FROM supplier WHERE " +
+                 "kode_supplier LIKE ? OR nama_supplier LIKE ? OR alamat LIKE ? OR no_telp LIKE ?";
+
+    try (Connection conn = koneksidatabase.getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql)) {
+
+        String likeKeyword = "%" + keyword + "%";
+        pst.setString(1, likeKeyword);
+        pst.setString(2, likeKeyword);
+        pst.setString(3, likeKeyword);
+         pst.setString(4, likeKeyword);
+
+
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            Object[] row = {
+                rs.getString("kode_supplier"),
+                    rs.getString("nama_supplier"),
+                    rs.getString("alamat"),
+                    rs.getString("no_telp")
+            };
+            model.addRow(row);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage());
+    }
+}
     private void clearForm() {
         txtKodeSupplier.setText("");
         txtNamaSupplier.setText("");
@@ -500,9 +543,10 @@ public class DataSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
+    private javax.swing.JTextField cari;
     private javax.swing.JButton editSupplier;
     private javax.swing.JButton hapusSupplier;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -516,7 +560,6 @@ public class DataSupplier extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tabelSupplier;
     private javax.swing.JButton tambahSupplier;
     private javax.swing.JTextArea txtAlamat;

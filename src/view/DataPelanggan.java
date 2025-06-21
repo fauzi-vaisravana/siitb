@@ -52,8 +52,8 @@ public class DataPelanggan extends javax.swing.JFrame {
         editPelanggan = new javax.swing.JButton();
         hapusPelanggan = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jCari = new javax.swing.JButton();
-        txtCari = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
+        cari = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -165,10 +165,10 @@ public class DataPelanggan extends javax.swing.JFrame {
             }
         });
 
-        jCari.setText("Cari");
-        jCari.addActionListener(new java.awt.event.ActionListener() {
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCariActionPerformed(evt);
+                btnCariActionPerformed(evt);
             }
         });
 
@@ -182,9 +182,9 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addContainerGap(295, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCari)
+                .addComponent(btnCari)
                 .addGap(121, 121, 121))
         );
         jPanel3Layout.setVerticalGroup(
@@ -192,8 +192,8 @@ public class DataPelanggan extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCari)
-                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCari)
+                    .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addContainerGap())
         );
@@ -407,10 +407,42 @@ public class DataPelanggan extends javax.swing.JFrame {
             }  
     }//GEN-LAST:event_tabelPelangganMouseClicked
 
-    private void jCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCariActionPerformed
-   // TODO add your handling code here:
-    }//GEN-LAST:event_jCariActionPerformed
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+   String keyword = cari.getText().trim();
+        cariDataPenjualan(keyword);
+    }//GEN-LAST:event_btnCariActionPerformed
 
+    private void cariDataPenjualan(String keyword) {
+    DefaultTableModel model = (DefaultTableModel) tabelPelanggan.getModel();
+    model.setRowCount(0); // Bersihkan isi tabel sebelum diisi ulang
+
+    String sql = "SELECT * FROM pelanggan WHERE " +
+                 "kode_pelanggan LIKE ? OR nama_pelanggan LIKE ? OR alamat LIKE ?";
+
+    try (Connection conn = koneksidatabase.getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql)) {
+
+        String likeKeyword = "%" + keyword + "%";
+        pst.setString(1, likeKeyword);
+        pst.setString(2, likeKeyword);
+        pst.setString(3, likeKeyword);
+        
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            Object[] row = {
+               rs.getString("kode_pelanggan"),
+                    rs.getString("nama_pelanggan"),
+                    rs.getString("alamat"),
+                    rs.getString("no_telp")
+            };
+            model.addRow(row);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage());
+    }
+}
     private void clearForm() {
         txtKodePelanggan.setText("");
         txtNamaPelanggan.setText("");
@@ -508,10 +540,11 @@ public class DataPelanggan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
     private javax.swing.JButton btnExit;
+    private javax.swing.JTextField cari;
     private javax.swing.JButton editPelanggan;
     private javax.swing.JButton hapusPelanggan;
-    private javax.swing.JButton jCari;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -527,7 +560,6 @@ public class DataPelanggan extends javax.swing.JFrame {
     private javax.swing.JTable tabelPelanggan;
     private javax.swing.JButton tambahPelanggan;
     private javax.swing.JTextArea txtAlamat;
-    private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtKodePelanggan;
     private javax.swing.JTextField txtNamaPelanggan;
     private javax.swing.JTextField txtNoTelp;

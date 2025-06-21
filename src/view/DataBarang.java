@@ -51,9 +51,9 @@ public class DataBarang extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnCari = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        cari = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelBarang = new javax.swing.JTable();
@@ -141,7 +141,12 @@ public class DataBarang extends javax.swing.JFrame {
 
         jPanel3.setPreferredSize(new java.awt.Dimension(791, 186));
 
-        jButton4.setText("Cari");
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Cari Barang");
 
@@ -150,12 +155,12 @@ public class DataBarang extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(387, Short.MAX_VALUE)
+                .addContainerGap(389, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btnCari)
                 .addGap(27, 27, 27))
         );
         jPanel3Layout.setVerticalGroup(
@@ -163,9 +168,9 @@ public class DataBarang extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jButton4))
+                    .addComponent(btnCari))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -538,6 +543,43 @@ public class DataBarang extends javax.swing.JFrame {
         }   
     }//GEN-LAST:event_tabelBarangMouseClicked
 
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+       String keyword = cari.getText().trim();
+        cariDataPenjualan(keyword);
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    
+     private void cariDataPenjualan(String keyword) {
+    DefaultTableModel model = (DefaultTableModel) tabelBarang.getModel();
+    model.setRowCount(0); // Bersihkan isi tabel sebelum diisi ulang
+
+    String sql = "SELECT * FROM barang WHERE " +
+                 "kode_barang LIKE ? OR nama_barang LIKE ?";
+
+    try (Connection conn = koneksidatabase.getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql)) {
+
+        String likeKeyword = "%" + keyword + "%";
+        pst.setString(1, likeKeyword);
+        pst.setString(2, likeKeyword);
+        
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            Object[] row = {
+               rs.getString("kode_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getInt("stok"),
+                    rs.getDouble("harga")
+            };
+            model.addRow(row);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage());
+    }
+}
+     
     private void clearForm() {
         txtKodeBarang.setText("");
         txtNamaBarang.setText("");
@@ -669,10 +711,11 @@ public class DataBarang extends javax.swing.JFrame {
 
     //
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
+    private javax.swing.JTextField cari;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -685,7 +728,6 @@ public class DataBarang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTable tabelBarang;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtKodeBarang;

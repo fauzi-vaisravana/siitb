@@ -53,6 +53,9 @@ public class StokForm extends javax.swing.JFrame {
         txtKodeBarang = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         tambahStokBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        cari = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelStok = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -186,20 +189,43 @@ public class StokForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Cari Sttok Barang");
+
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(444, 444, 444)
+                .addGap(135, 135, 135)
                 .addComponent(tambahStokBtn)
+                .addGap(311, 311, 311)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tambahStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tambahStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnCari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -317,6 +343,43 @@ public class StokForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbNamaBarangActionPerformed
 
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+       String keyword = cari.getText().trim();
+        cariDataPenjualan(keyword);
+    }//GEN-LAST:event_btnCariActionPerformed
+
+     private void cariDataPenjualan(String keyword) {
+    DefaultTableModel model = (DefaultTableModel) tabelStok.getModel();
+    model.setRowCount(0); // Bersihkan isi tabel sebelum diisi ulang
+
+    String sql = "SELECT * FROM stok WHERE " +
+                 "id_stok LIKE ? OR kode_barang LIKE ? OR tanggal LIKE ?";
+
+    try (Connection conn = koneksidatabase.getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql)) {
+
+        String likeKeyword = "%" + keyword + "%";
+        pst.setString(1, likeKeyword);
+        pst.setString(2, likeKeyword);
+         pst.setString(3, likeKeyword);
+        
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            Object[] row = {
+               rs.getInt("id_stok"),
+                    rs.getString("kode_barang"),
+                    rs.getInt("jumlah"),
+                    rs.getString("tipe"),
+                    rs.getTimestamp("tanggal")
+            };
+            model.addRow(row);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage());
+    }
+}
     public boolean tambahStok(Stok s) {
         String sql = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
 
@@ -449,12 +512,15 @@ public class StokForm extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
+    private javax.swing.JTextField cari;
     private javax.swing.JComboBox<String> cmbNamaBarang;
     private javax.swing.JComboBox<String> cmbTipe;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
