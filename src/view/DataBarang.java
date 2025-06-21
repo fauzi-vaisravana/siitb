@@ -555,7 +555,7 @@ public class DataBarang extends javax.swing.JFrame {
 
     String sql = "SELECT * FROM barang WHERE " +
                  "kode_barang LIKE ? OR nama_barang LIKE ?";
-
+ 
     try (Connection conn = koneksidatabase.getConnection();
          PreparedStatement pst = conn.prepareStatement(sql)) {
 

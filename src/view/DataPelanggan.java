@@ -421,7 +421,7 @@ public class DataPelanggan extends javax.swing.JFrame {
 
     try (Connection conn = koneksidatabase.getConnection();
          PreparedStatement pst = conn.prepareStatement(sql)) {
-
+ 
         String likeKeyword = "%" + keyword + "%";
         pst.setString(1, likeKeyword);
         pst.setString(2, likeKeyword);
