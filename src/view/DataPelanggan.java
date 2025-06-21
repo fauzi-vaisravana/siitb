@@ -58,7 +58,7 @@ public class DataPelanggan extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelPelanggan = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -233,10 +233,10 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton5.setText("X");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setText("X");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -263,8 +263,9 @@ public class DataPelanggan extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(259, 259, 259)
-                        .addComponent(jButton5)))
+                        .addGap(244, 244, 244)
+                        .addComponent(btnExit)
+                        .addGap(15, 15, 15)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -273,7 +274,7 @@ public class DataPelanggan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton5))
+                    .addComponent(btnExit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -364,9 +365,9 @@ public class DataPelanggan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaPelangganActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void tambahPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahPelangganActionPerformed
         Pelanggan p = new Pelanggan(txtKodePelanggan.getText(), txtNamaPelanggan.getText(), txtAlamat.getText(), txtNoTelp.getText());
@@ -507,9 +508,9 @@ public class DataPelanggan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton editPelanggan;
     private javax.swing.JButton hapusPelanggan;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jCari;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
