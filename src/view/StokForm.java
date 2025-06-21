@@ -26,6 +26,7 @@ public class StokForm extends javax.swing.JFrame {
     public StokForm() {
         initComponents();
         refreshTable();
+        loadDataBarang();
     }
 
     /**
@@ -47,7 +48,9 @@ public class StokForm extends javax.swing.JFrame {
         cmbTipe = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtJumlah = new javax.swing.JTextField();
-        cmbBarang = new javax.swing.JComboBox<>();
+        cmbNamaBarang = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        txtKodeBarang = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         tambahStokBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -90,7 +93,7 @@ public class StokForm extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        txt_brg.setText("Kode Barang");
+        txt_brg.setText("Nama Barang");
 
         txt_tp.setText("Tipe");
 
@@ -98,7 +101,15 @@ public class StokForm extends javax.swing.JFrame {
 
         jLabel2.setText("Jumlah");
 
-        cmbBarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNamaBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNamaBarangActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Kode Barang");
+
+        txtKodeBarang.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -106,32 +117,46 @@ public class StokForm extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_brg)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel3))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtJumlah)
-                    .addComponent(cmbBarang, 0, 204, Short.MAX_VALUE))
+                    .addComponent(txtKodeBarang)
+                    .addComponent(cmbNamaBarang, 0, 204, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txt_tp)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_tp, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addComponent(cmbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_brg)
-                    .addComponent(txt_tp)
-                    .addComponent(cmbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_brg)
+                            .addComponent(cmbNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_tp)
+                            .addComponent(cmbTipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -241,17 +266,18 @@ public class StokForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void clearForm() {
-        cmbBarang.setSelectedIndex(0);
+        cmbNamaBarang.setSelectedIndex(0);
         txtJumlah.setText("");
         cmbTipe.setSelectedIndex(0); 
     }
 
     private void tambahStokBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahStokBtnActionPerformed
-        String barang = cmbBarang.getSelectedItem().toString();
+//        String barang = cmbNamaBarang.getSelectedItem().toString();
+        String kode = txtKodeBarang.getText();
         int jumlah = Integer.parseInt(txtJumlah.getText());
         String tipe = cmbTipe.getSelectedItem().toString();
 
-        Stok stok = new Stok(barang, jumlah, tipe);
+        Stok stok = new Stok(kode, jumlah, tipe);
 
         if (tambahStok(stok)) {
             JOptionPane.showMessageDialog(null, "Mutasi stok berhasil disimpan!");
@@ -259,6 +285,37 @@ public class StokForm extends javax.swing.JFrame {
             refreshTable();
         }
     }//GEN-LAST:event_tambahStokBtnActionPerformed
+
+    private void cmbNamaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamaBarangActionPerformed
+        String nama = (String) cmbNamaBarang.getSelectedItem();
+        if ( nama != null && !nama.equals("-- Pilih Nama --")) {
+            try {
+                Connection conn = koneksidatabase.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                    "SELECT kode_barang, harga FROM barang WHERE nama_barang = ?"
+                );
+                ps.setString(1, nama);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    txtKodeBarang.setText(rs.getString("kode_barang"));
+                    
+                } else {
+                    txtKodeBarang.setText("");
+                    
+                    
+                }
+                
+                rs.close();
+                ps.close();
+                conn.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Gagal ambil barang: " + e.getMessage());
+            }
+        } else {
+            txtKodeBarang.setText("");
+            
+        }
+    }//GEN-LAST:event_cmbNamaBarangActionPerformed
 
     public boolean tambahStok(Stok s) {
         String sql = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
@@ -335,7 +392,24 @@ public class StokForm extends javax.swing.JFrame {
         loadDataToTable();
     }
 
+    private void loadDataBarang() {
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT nama_barang FROM barang");
 
+            cmbNamaBarang.removeAllItems();
+            cmbNamaBarang.addItem("-- Pilih Nama --");
+            while (rs.next()) {
+                cmbNamaBarang.addItem(rs.getString("nama_barang"));
+            }
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal load barang: " + e.getMessage());
+        }
+    }   
 
 
     /**
@@ -375,11 +449,12 @@ public class StokForm extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbBarang;
+    private javax.swing.JComboBox<String> cmbNamaBarang;
     private javax.swing.JComboBox<String> cmbTipe;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -389,6 +464,7 @@ public class StokForm extends javax.swing.JFrame {
     private javax.swing.JTable tabelStok;
     private javax.swing.JButton tambahStokBtn;
     private javax.swing.JTextField txtJumlah;
+    private javax.swing.JTextField txtKodeBarang;
     private javax.swing.JLabel txt_brg;
     private javax.swing.JLabel txt_tp;
     // End of variables declaration//GEN-END:variables
