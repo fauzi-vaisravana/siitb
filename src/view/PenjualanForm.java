@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package view;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import koneksi.koneksidatabase;
 import model.Penjualan;
 import java.sql.*;
@@ -27,18 +29,19 @@ public class PenjualanForm extends javax.swing.JFrame {
         refreshTable();
         loadDataPelanggan();
         loadDataBarang();
-        txtJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyReleased(java.awt.event.KeyEvent evt) {
-            hitungTotalHarga();
-            }
-        });
+        hitungTotalHarga(); // Hitung di awal jika field sudah terisi
 
-        txtHarga.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtJumlah.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
                 hitungTotalHarga();
             }
         });
 
+        txtHarga.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                hitungTotalHarga();
+            }
+        });
     }
 
     /**
@@ -96,6 +99,8 @@ public class PenjualanForm extends javax.swing.JFrame {
         jLabel6.setText("Harga Satuan");
 
         jLabel7.setText("Total Harga");
+
+        txtHarga.setEditable(false);
 
         txtTotalHarga.setEditable(false);
         txtTotalHarga.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +189,7 @@ public class PenjualanForm extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
@@ -236,7 +241,7 @@ public class PenjualanForm extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         tabelPenjualan.setModel(new javax.swing.table.DefaultTableModel(
@@ -395,13 +400,19 @@ public class PenjualanForm extends javax.swing.JFrame {
             try {
                 Connection conn = koneksidatabase.getConnection();
                 PreparedStatement ps = conn.prepareStatement(
-                    "SELECT nama_barang FROM barang WHERE kode_barang = ?"
+                    "SELECT nama_barang, harga FROM barang WHERE kode_barang = ?"
                 );
                 ps.setString(1, kode);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     namaBarangTxt.setText(rs.getString("nama_barang"));
+                    txtHarga.setText(String.valueOf(rs.getDouble("harga"))); // atau rs.getString("harga")
+                } else {
+                    namaBarangTxt.setText("");
+                    txtHarga.setText("");
+                    
                 }
+                
                 rs.close();
                 ps.close();
                 conn.close();
@@ -410,6 +421,7 @@ public class PenjualanForm extends javax.swing.JFrame {
             }
         } else {
             namaBarangTxt.setText("");
+            txtHarga.setText("");
         }
     }//GEN-LAST:event_cmbBarangActionPerformed
 
@@ -548,15 +560,16 @@ public class PenjualanForm extends javax.swing.JFrame {
         loadDataToTable();
     }
 
+    
     private void hitungTotalHarga() {
         try {
             int jumlah = Integer.parseInt(txtJumlah.getText().trim());
-            int harga = Integer.parseInt(txtHarga.getText().trim());
-            int total = jumlah * harga;
+            double harga = Double.parseDouble(txtHarga.getText().trim());
+            double total = jumlah * harga;
 
-            txtTotalHarga.setText(String.valueOf(total));
+            txtTotalHarga.setText(String.format("%.1f", total));
         } catch (NumberFormatException e) {
-            txtTotalHarga.setText("0"); // Default jika input kosong atau bukan angka
+            txtTotalHarga.setText("0");
         }
     }
 
