@@ -62,14 +62,14 @@ public class MitraPembelianForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtNamaMitra = new javax.swing.JTextField();
+        txtKodeSupplier = new javax.swing.JTextField();
         txtJumlah = new javax.swing.JTextField();
         txtHargaSatuan = new javax.swing.JTextField();
         totalHarga = new javax.swing.JTextField();
-        cmbSupplier = new javax.swing.JComboBox<>();
-        cmbBarang = new javax.swing.JComboBox<>();
+        cmbNamaMitra = new javax.swing.JComboBox<>();
+        cmbNamaBarang = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        namaBarangTxt = new javax.swing.JTextField();
+        txtKodeBarang = new javax.swing.JTextField();
         tambahPembelianBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -89,11 +89,11 @@ public class MitraPembelianForm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MITRA");
 
-        jLabel2.setText("Nama Mitra");
+        jLabel2.setText("Kode Supplier");
 
-        jLabel3.setText("Kode Supplier");
+        jLabel3.setText("Nama Mitra");
 
-        jLabel4.setText("Kode Barang");
+        jLabel4.setText("Nama Barang");
 
         jLabel5.setText("Jumlah");
 
@@ -101,10 +101,10 @@ public class MitraPembelianForm extends javax.swing.JFrame {
 
         jLabel7.setText("Total");
 
-        txtNamaMitra.setEditable(false);
-        txtNamaMitra.addActionListener(new java.awt.event.ActionListener() {
+        txtKodeSupplier.setEditable(false);
+        txtKodeSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaMitraActionPerformed(evt);
+                txtKodeSupplierActionPerformed(evt);
             }
         });
 
@@ -128,25 +128,25 @@ public class MitraPembelianForm extends javax.swing.JFrame {
             }
         });
 
-        cmbSupplier.addActionListener(new java.awt.event.ActionListener() {
+        cmbNamaMitra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbSupplierActionPerformed(evt);
+                cmbNamaMitraActionPerformed(evt);
             }
         });
 
-        cmbBarang.addActionListener(new java.awt.event.ActionListener() {
+        cmbNamaBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBarangActionPerformed(evt);
+                cmbNamaBarangActionPerformed(evt);
             }
         });
 
-        jLabel8.setText("Nama Barang");
+        jLabel8.setText("Kode Barang");
 
-        namaBarangTxt.setEditable(false);
-        namaBarangTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        namaBarangTxt.addActionListener(new java.awt.event.ActionListener() {
+        txtKodeBarang.setEditable(false);
+        txtKodeBarang.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtKodeBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                namaBarangTxtActionPerformed(evt);
+                txtKodeBarangActionPerformed(evt);
             }
         });
 
@@ -163,10 +163,10 @@ public class MitraPembelianForm extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNamaMitra, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(cmbSupplier, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbBarang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(namaBarangTxt))
+                    .addComponent(txtKodeSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(cmbNamaMitra, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbNamaBarang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtKodeBarang))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 466, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -188,14 +188,14 @@ public class MitraPembelianForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
                         .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbNamaMitra, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(txtHargaSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
-                    .addComponent(txtNamaMitra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKodeSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -206,11 +206,11 @@ public class MitraPembelianForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(cmbBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(namaBarangTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(22, Short.MAX_VALUE))))
         );
 
@@ -377,9 +377,9 @@ public class MitraPembelianForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tambahPembelianBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahPembelianBtnActionPerformed
-        String kodeSupplier = cmbSupplier.getSelectedItem().toString();
-        String namaMitra = txtNamaMitra.getText();
-        String kodeBarang = cmbBarang.getSelectedItem().toString();
+        String kodeSupplier = txtKodeSupplier.getText();
+        String namaMitra = cmbNamaMitra.getSelectedItem().toString();
+        String kodeBarang = txtKodeBarang.getText();
         int jumlah = Integer.parseInt(txtJumlah.getText());
         double hargaSatuan = Double.parseDouble(txtHargaSatuan.getText());
         double totalHarga = jumlah * hargaSatuan;
@@ -397,20 +397,20 @@ public class MitraPembelianForm extends javax.swing.JFrame {
         // Todo Kalo ada edit
     }//GEN-LAST:event_tabelPembelianMouseClicked
 
-    private void cmbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSupplierActionPerformed
-        String kode = (String) cmbSupplier.getSelectedItem();
-        if (kode != null && !kode.equals("-- Pilih Kode --")) {
+    private void cmbNamaMitraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamaMitraActionPerformed
+        String nama = (String) cmbNamaMitra.getSelectedItem();
+        if ( nama != null && !nama.equals("-- Pilih Nama --")) {
             try {
                 Connection conn = koneksidatabase.getConnection();
                 PreparedStatement ps = conn.prepareStatement(
-                    "SELECT nama_supplier FROM supplier WHERE kode_supplier = ?"
+                    "SELECT kode_supplier FROM supplier WHERE nama_supplier = ?"
                 );
-                ps.setString(1, kode);
+                ps.setString(1, nama);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    txtNamaMitra.setText(rs.getString("nama_supplier"));
+                    txtKodeSupplier.setText(rs.getString("kode_supplier"));
                 } else {
-                    txtNamaMitra.setText("");                    
+                    txtKodeSupplier.setText("");                    
                 }
                 
                 rs.close();
@@ -420,25 +420,25 @@ public class MitraPembelianForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Gagal ambil barang: " + e.getMessage());
             }
         } else {
-            txtNamaMitra.setText("");
+            txtKodeSupplier.setText("");
         }
-    }//GEN-LAST:event_cmbSupplierActionPerformed
+    }//GEN-LAST:event_cmbNamaMitraActionPerformed
 
-    private void cmbBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBarangActionPerformed
-        String kode = (String) cmbBarang.getSelectedItem();
-        if (kode != null && !kode.equals("-- Pilih Kode --")) {
+    private void cmbNamaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNamaBarangActionPerformed
+        String nama = (String) cmbNamaBarang.getSelectedItem();
+        if ( nama != null && !nama.equals("-- Pilih Nama --")) {
             try {
                 Connection conn = koneksidatabase.getConnection();
                 PreparedStatement ps = conn.prepareStatement(
-                    "SELECT nama_barang, harga FROM barang WHERE kode_barang = ?"
+                    "SELECT kode_barang, harga FROM barang WHERE nama_barang = ?"
                 );
-                ps.setString(1, kode);
+                ps.setString(1, nama);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    namaBarangTxt.setText(rs.getString("nama_barang"));
+                    txtKodeBarang.setText(rs.getString("kode_barang"));
                     txtHargaSatuan.setText(String.valueOf(rs.getDouble("harga"))); // atau rs.getString("harga")
                 } else {
-                    namaBarangTxt.setText("");
+                    txtKodeBarang.setText("");
                     txtHargaSatuan.setText("");
                     
                 }
@@ -450,10 +450,10 @@ public class MitraPembelianForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Gagal ambil barang: " + e.getMessage());
             }
         } else {
-            namaBarangTxt.setText("");
+            txtKodeBarang.setText("");
             txtHargaSatuan.setText("");
         }
-    }//GEN-LAST:event_cmbBarangActionPerformed
+    }//GEN-LAST:event_cmbNamaBarangActionPerformed
 
     private void txtJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJumlahActionPerformed
         // TODO add your handling code here:
@@ -463,29 +463,29 @@ public class MitraPembelianForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtHargaSatuanActionPerformed
 
-    private void namaBarangTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaBarangTxtActionPerformed
+    private void txtKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeBarangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_namaBarangTxtActionPerformed
+    }//GEN-LAST:event_txtKodeBarangActionPerformed
 
     private void totalHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalHargaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalHargaActionPerformed
 
-    private void txtNamaMitraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaMitraActionPerformed
+    private void txtKodeSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeSupplierActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaMitraActionPerformed
+    }//GEN-LAST:event_txtKodeSupplierActionPerformed
 
     
     private void loadDataBarang() {
         try {
             Connection conn = koneksidatabase.getConnection();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT kode_barang FROM barang");
+            ResultSet rs = st.executeQuery("SELECT nama_barang FROM barang");
 
-            cmbBarang.removeAllItems();
-            cmbBarang.addItem("-- Pilih Kode --");
+            cmbNamaBarang.removeAllItems();
+            cmbNamaBarang.addItem("-- Pilih Nama --");
             while (rs.next()) {
-                cmbBarang.addItem(rs.getString("kode_barang"));
+                cmbNamaBarang.addItem(rs.getString("nama_barang"));
             }
             rs.close();
             st.close();
@@ -501,13 +501,13 @@ public class MitraPembelianForm extends javax.swing.JFrame {
         try {
             Connection conn = koneksidatabase.getConnection();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT kode_supplier FROM supplier");
+            ResultSet rs = st.executeQuery("SELECT nama_supplier FROM supplier");
 
-            cmbSupplier.removeAllItems();
-            cmbSupplier.addItem("-- Pilih Kode --");
+            cmbNamaMitra.removeAllItems();
+            cmbNamaMitra.addItem("-- Pilih Nama --");
             while (rs.next()) {
                
-                cmbSupplier.addItem(rs.getString("kode_supplier"));
+                cmbNamaMitra.addItem(rs.getString("nama_supplier"));
             }
 
             rs.close();
@@ -522,10 +522,11 @@ public class MitraPembelianForm extends javax.swing.JFrame {
      
     
     private void clearForm() {
-        cmbSupplier.setSelectedIndex(0);
-        txtNamaMitra.setText("");
-        cmbBarang.setSelectedIndex(0);
+        cmbNamaMitra.setSelectedIndex(0);
+        txtKodeSupplier.setText("");
+        cmbNamaBarang.setSelectedIndex(0);
         txtJumlah.setText("");
+        txtKodeBarang.setText("");
         txtHargaSatuan.setText("");
         totalHarga.setText("");
     }
@@ -648,8 +649,8 @@ public class MitraPembelianForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbBarang;
-    private javax.swing.JComboBox<String> cmbSupplier;
+    private javax.swing.JComboBox<String> cmbNamaBarang;
+    private javax.swing.JComboBox<String> cmbNamaMitra;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -667,12 +668,12 @@ public class MitraPembelianForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField namaBarangTxt;
     private javax.swing.JTable tabelPembelian;
     private javax.swing.JButton tambahPembelianBtn;
     private javax.swing.JTextField totalHarga;
     private javax.swing.JTextField txtHargaSatuan;
     private javax.swing.JTextField txtJumlah;
-    private javax.swing.JTextField txtNamaMitra;
+    private javax.swing.JTextField txtKodeBarang;
+    private javax.swing.JTextField txtKodeSupplier;
     // End of variables declaration//GEN-END:variables
 }
