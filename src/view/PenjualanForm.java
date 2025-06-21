@@ -227,6 +227,12 @@ public class PenjualanForm extends javax.swing.JFrame {
 
         jLabel9.setText("Cari Transaksi");
 
+        cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariActionPerformed(evt);
+            }
+        });
+
         btnCari.setText("Cari");
         btnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,7 +261,7 @@ public class PenjualanForm extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCari))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         tabelPenjualan.setModel(new javax.swing.table.DefaultTableModel(
@@ -453,6 +459,10 @@ public class PenjualanForm extends javax.swing.JFrame {
         String keyword = cari.getText().trim();
         cariDataPenjualan(keyword);
     }//GEN-LAST:event_btnCariActionPerformed
+
+    private void cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cariActionPerformed
     
     private void cariDataPenjualan(String keyword) {
     DefaultTableModel model = (DefaultTableModel) tabelPenjualan.getModel();
