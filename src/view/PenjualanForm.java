@@ -73,8 +73,8 @@ public class PenjualanForm extends javax.swing.JFrame {
         tambahPenjualanBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        cari = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelPenjualan = new javax.swing.JTable();
@@ -227,7 +227,12 @@ public class PenjualanForm extends javax.swing.JFrame {
 
         jLabel9.setText("Cari Transaksi");
 
-        jButton4.setText("Cari");
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -236,10 +241,10 @@ public class PenjualanForm extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnCari)
                 .addGap(47, 47, 47))
         );
         jPanel3Layout.setVerticalGroup(
@@ -248,8 +253,8 @@ public class PenjualanForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCari))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -444,6 +449,47 @@ public class PenjualanForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalHargaActionPerformed
 
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        String keyword = cari.getText().trim();
+        cariDataPenjualan(keyword);
+    }//GEN-LAST:event_btnCariActionPerformed
+    
+    private void cariDataPenjualan(String keyword) {
+    DefaultTableModel model = (DefaultTableModel) tabelPenjualan.getModel();
+    model.setRowCount(0); // Bersihkan isi tabel sebelum diisi ulang
+
+    String sql = "SELECT * FROM penjualan WHERE " +
+                 "kode_pelanggan LIKE ? OR kode_barang LIKE ? OR tanggal LIKE ?";
+
+    try (Connection conn = koneksidatabase.getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql)) {
+
+        String likeKeyword = "%" + keyword + "%";
+        pst.setString(1, likeKeyword);
+        pst.setString(2, likeKeyword);
+        pst.setString(3, likeKeyword);
+
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("id_penjualan"),
+                rs.getString("kode_pelanggan"),
+                rs.getString("kode_barang"),
+                rs.getInt("jumlah"),
+                rs.getDouble("harga_satuan"),
+                rs.getDouble("total_harga"),
+                rs.getString("tanggal")
+            };
+            model.addRow(row);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage());
+    }
+}
+
+    
     private void loadDataBarang() {
         try {
             Connection conn = koneksidatabase.getConnection();
@@ -620,9 +666,10 @@ public class PenjualanForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
+    private javax.swing.JTextField cari;
     private javax.swing.JTextField cmbBarang;
     private javax.swing.JTextField cmbPelanggan;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -638,7 +685,6 @@ public class PenjualanForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JComboBox<String> namaBarangTxt;
     private javax.swing.JComboBox<String> namaPelangganTxt;
     private javax.swing.JTable tabelPenjualan;
