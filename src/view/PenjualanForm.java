@@ -26,6 +26,19 @@ public class PenjualanForm extends javax.swing.JFrame {
         initComponents();
         refreshTable();
         loadDataPelanggan();
+        loadDataBarang();
+        txtJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            hitungTotalHarga();
+            }
+        });
+
+        txtHarga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                hitungTotalHarga();
+            }
+        });
+
     }
 
     /**
@@ -377,7 +390,27 @@ public class PenjualanForm extends javax.swing.JFrame {
     }//GEN-LAST:event_namaPelangganTxtActionPerformed
 
     private void cmbBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBarangActionPerformed
-        // TODO add your handling code here:
+        String kode = (String) cmbBarang.getSelectedItem();
+        if (kode != null && !kode.equals("-- Pilih Kode --")) {
+            try {
+                Connection conn = koneksidatabase.getConnection();
+                PreparedStatement ps = conn.prepareStatement(
+                    "SELECT nama_barang FROM barang WHERE kode_barang = ?"
+                );
+                ps.setString(1, kode);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    namaBarangTxt.setText(rs.getString("nama_barang"));
+                }
+                rs.close();
+                ps.close();
+                conn.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Gagal ambil barang: " + e.getMessage());
+            }
+        } else {
+            namaBarangTxt.setText("");
+        }
     }//GEN-LAST:event_cmbBarangActionPerformed
 
     private void namaBarangTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaBarangTxtActionPerformed
@@ -388,6 +421,25 @@ public class PenjualanForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalHargaActionPerformed
 
+    private void loadDataBarang() {
+        try {
+            Connection conn = koneksidatabase.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT kode_barang FROM barang");
+
+            cmbBarang.removeAllItems();
+            cmbBarang.addItem("-- Pilih Kode --");
+            while (rs.next()) {
+                cmbBarang.addItem(rs.getString("kode_barang"));
+            }
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal load barang: " + e.getMessage());
+        }
+    }    
+    
     private void loadDataPelanggan() {
         try {
             Connection conn = koneksidatabase.getConnection();
@@ -496,6 +548,17 @@ public class PenjualanForm extends javax.swing.JFrame {
         loadDataToTable();
     }
 
+    private void hitungTotalHarga() {
+        try {
+            int jumlah = Integer.parseInt(txtJumlah.getText().trim());
+            int harga = Integer.parseInt(txtHarga.getText().trim());
+            int total = jumlah * harga;
+
+            txtTotalHarga.setText(String.valueOf(total));
+        } catch (NumberFormatException e) {
+            txtTotalHarga.setText("0"); // Default jika input kosong atau bukan angka
+        }
+    }
 
     /**
      * @param args the command line arguments
