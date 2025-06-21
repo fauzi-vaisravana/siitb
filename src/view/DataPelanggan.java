@@ -52,8 +52,8 @@ public class DataPelanggan extends javax.swing.JFrame {
         editPelanggan = new javax.swing.JButton();
         hapusPelanggan = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
+        jCari = new javax.swing.JButton();
+        txtCari = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -165,7 +165,12 @@ public class DataPelanggan extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Cari");
+        jCari.setText("Cari");
+        jCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCariActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Cari Data Pelanggan");
 
@@ -174,21 +179,21 @@ public class DataPelanggan extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(295, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addContainerGap())
+                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCari)
+                .addGap(121, 121, 121))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCari)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addContainerGap())
         );
@@ -401,6 +406,10 @@ public class DataPelanggan extends javax.swing.JFrame {
             }  
     }//GEN-LAST:event_tabelPelangganMouseClicked
 
+    private void jCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCariActionPerformed
+   // TODO add your handling code here:
+    }//GEN-LAST:event_jCariActionPerformed
+
     private void clearForm() {
         txtKodePelanggan.setText("");
         txtNamaPelanggan.setText("");
@@ -500,8 +509,8 @@ public class DataPelanggan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editPelanggan;
     private javax.swing.JButton hapusPelanggan;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jCari;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -514,10 +523,10 @@ public class DataPelanggan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tabelPelanggan;
     private javax.swing.JButton tambahPelanggan;
     private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtKodePelanggan;
     private javax.swing.JTextField txtNamaPelanggan;
     private javax.swing.JTextField txtNoTelp;
