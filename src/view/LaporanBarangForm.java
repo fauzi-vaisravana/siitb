@@ -211,6 +211,10 @@ public class LaporanBarangForm extends javax.swing.JFrame {
     private void bprintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bprintActionPerformed
         // TODO add your handling code here:
         
+        
+        
+        
+        
     }//GEN-LAST:event_bprintActionPerformed
 
     /**
