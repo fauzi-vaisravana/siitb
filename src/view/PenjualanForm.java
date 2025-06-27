@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;  
 import javax.swing.ListSelectionModel;       
 import java.text.DecimalFormat;  
+import java.util.HashMap;
+import java.util.Map;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -481,15 +483,16 @@ public class PenjualanForm extends javax.swing.JFrame {
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         try {
-            String reportPath = "src/laporan/laporan_penjualan.jasper";
+            String reportPath = "src/view/laporan/laporan_penjualan.jasper";
             Connection conn = koneksidatabase.getConnection();
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, null, conn);
+            Map<String, Object> parameters = new HashMap<>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
             JasperViewer.viewReport(jasperPrint, false);
 
+            conn.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnCetakActionPerformed
     
