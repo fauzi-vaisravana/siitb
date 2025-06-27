@@ -15,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;  
 import javax.swing.ListSelectionModel;       
 import java.text.DecimalFormat;  
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author Kelompok 2
@@ -79,6 +82,7 @@ public class PenjualanForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelPenjualan = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -261,7 +265,7 @@ public class PenjualanForm extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCari))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         tabelPenjualan.setModel(new javax.swing.table.DefaultTableModel(
@@ -301,6 +305,13 @@ public class PenjualanForm extends javax.swing.JFrame {
             }
         });
 
+        btnCetak.setText("Cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCetakActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -308,7 +319,9 @@ public class PenjualanForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(tambahPenjualanBtn)
-                .addGap(433, 433, 433))
+                .addGap(40, 40, 40)
+                .addComponent(btnCetak)
+                .addGap(314, 314, 314))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +345,9 @@ public class PenjualanForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tambahPenjualanBtn)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tambahPenjualanBtn)
+                    .addComponent(btnCetak))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -463,6 +478,20 @@ public class PenjualanForm extends javax.swing.JFrame {
     private void cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cariActionPerformed
+
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+        try {
+            String reportPath = "src/laporan/laporan_penjualan.jasper";
+            Connection conn = koneksidatabase.getConnection();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, null, conn);
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnCetakActionPerformed
     
     private void cariDataPenjualan(String keyword) {
     DefaultTableModel model = (DefaultTableModel) tabelPenjualan.getModel();
@@ -677,6 +706,7 @@ public class PenjualanForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JTextField cari;
     private javax.swing.JTextField cmbBarang;
     private javax.swing.JTextField cmbPelanggan;
