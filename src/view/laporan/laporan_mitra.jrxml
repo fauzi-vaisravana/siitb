@@ -59,6 +59,9 @@
 				</textElement>
 				<text><![CDATA[PT JAKARTA BESI]]></text>
 			</staticText>
+			<line>
+				<reportElement x="1" y="96" width="799" height="1" uuid="ac6c2f0c-0cf9-46d7-a9bb-dbaca41405a9"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
