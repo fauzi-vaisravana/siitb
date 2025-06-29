@@ -4,20 +4,24 @@
  * and open the template in the editor.
  */
 package view;
+
 import koneksi.koneksidatabase;
 import model.Supplier;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;  
-import javax.swing.ListSelectionModel;       
-import java.text.DecimalFormat; 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Kelompok 2
  */
 public class DataSupplier extends javax.swing.JFrame {
+
+    private boolean aku;
 
     /**
      * Creates new form Supplier
@@ -250,7 +254,7 @@ public class DataSupplier extends javax.swing.JFrame {
                         .addComponent(editSupplier)
                         .addGap(49, 49, 49)
                         .addComponent(hapusSupplier)
-                        .addGap(304, 304, 304))
+                        .addGap(224, 224, 224))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +308,7 @@ public class DataSupplier extends javax.swing.JFrame {
         String sql = "INSERT INTO supplier (kode_supplier, nama_supplier, alamat, no_telp) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+                PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setString(1, supplier.getKodeSupplier());
             pst.setString(2, supplier.getNamaSupplier());
@@ -318,12 +322,12 @@ public class DataSupplier extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     public boolean editSupplier(Supplier supplier) {
         String sql = "UPDATE supplier SET nama_supplier = ?, alamat = ?, no_telp = ? WHERE kode_supplier = ?";
 
         try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+                PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setString(1, supplier.getNamaSupplier());
             pst.setString(2, supplier.getAlamat());
@@ -337,12 +341,12 @@ public class DataSupplier extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     public boolean hapusSupplier(String kodeSupplier) {
         String sql = "DELETE FROM supplier WHERE kode_supplier = ?";
 
         try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+                PreparedStatement pst = conn.prepareStatement(sql)) {
 
             pst.setString(1, kodeSupplier);
             return pst.executeUpdate() > 0;
@@ -354,8 +358,6 @@ public class DataSupplier extends javax.swing.JFrame {
     }
 
 
-
-    
     private void txtKodeSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeSupplierActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKodeSupplierActionPerformed
@@ -369,8 +371,8 @@ public class DataSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tambahSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahSupplierActionPerformed
-        Supplier s = new Supplier(txtKodeSupplier.getText(), txtNamaSupplier.getText(), 
-                                  txtAlamat.getText(), txtNoTelp.getText());
+        Supplier s = new Supplier(txtKodeSupplier.getText(), txtNamaSupplier.getText(),
+                txtAlamat.getText(), txtNoTelp.getText());
 
         if (tambahSupplier(s)) {
             JOptionPane.showMessageDialog(null, "Supplier berhasil ditambahkan!");
@@ -380,7 +382,7 @@ public class DataSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_tambahSupplierActionPerformed
 
     private void editSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSupplierActionPerformed
-        Supplier s = new Supplier(txtKodeSupplier.getText(), txtNamaSupplier.getText(), 
+        Supplier s = new Supplier(txtKodeSupplier.getText(), txtNamaSupplier.getText(),
                 txtAlamat.getText(), txtNoTelp.getText());
 
         if (editSupplier(s)) {
@@ -391,7 +393,7 @@ public class DataSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_editSupplierActionPerformed
 
     private void hapusSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusSupplierActionPerformed
-            if (hapusSupplier(txtKodeSupplier.getText())) {
+        if (hapusSupplier(txtKodeSupplier.getText())) {
             JOptionPane.showMessageDialog(null, "Supplier berhasil dihapus!");
             clearForm();
             refreshTable();
@@ -405,47 +407,46 @@ public class DataSupplier extends javax.swing.JFrame {
             txtNamaSupplier.setText(tabelSupplier.getValueAt(selectedRow, 1).toString());
             txtAlamat.setText(tabelSupplier.getValueAt(selectedRow, 2).toString());
             txtNoTelp.setText(tabelSupplier.getValueAt(selectedRow, 3).toString());
-        }   
+        }
     }//GEN-LAST:event_tabelSupplierMouseClicked
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         String keyword = cari.getText().trim();
         cariDataPenjualan(keyword);
     }//GEN-LAST:event_btnCariActionPerformed
+    private void cariDataPenjualan(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tabelSupplier.getModel();
+        model.setRowCount(0); // Bersihkan isi tabel sebelum diisi ulang
 
-     private void cariDataPenjualan(String keyword) {
-    DefaultTableModel model = (DefaultTableModel) tabelSupplier.getModel();
-    model.setRowCount(0); // Bersihkan isi tabel sebelum diisi ulang
+        String sql = "SELECT * FROM supplier WHERE "
+                + "kode_supplier LIKE ? OR nama_supplier LIKE ? OR alamat LIKE ? OR no_telp LIKE ?";
 
-    String sql = "SELECT * FROM supplier WHERE " +
-                 "kode_supplier LIKE ? OR nama_supplier LIKE ? OR alamat LIKE ? OR no_telp LIKE ?";
+        try (Connection conn = koneksidatabase.getConnection();
+                PreparedStatement pst = conn.prepareStatement(sql)) {
 
-    try (Connection conn = koneksidatabase.getConnection();
-         PreparedStatement pst = conn.prepareStatement(sql)) {
- 
-        String likeKeyword = "%" + keyword + "%";
-        pst.setString(1, likeKeyword);
-        pst.setString(2, likeKeyword);
-        pst.setString(3, likeKeyword);
-         pst.setString(4, likeKeyword);
+            String likeKeyword = "%" + keyword + "%";
+            pst.setString(1, likeKeyword);
+            pst.setString(2, likeKeyword);
+            pst.setString(3, likeKeyword);
+            pst.setString(4, likeKeyword);
 
+            ResultSet rs = pst.executeQuery();
 
-        ResultSet rs = pst.executeQuery();
-
-        while (rs.next()) {
-            Object[] row = {
-                rs.getString("kode_supplier"),
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getString("kode_supplier"),
                     rs.getString("nama_supplier"),
                     rs.getString("alamat"),
                     rs.getString("no_telp")
-            };
-            model.addRow(row);
-        }
+                };
+                model.addRow(row);
+            }
 
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage());
+        }
     }
-}
+
     private void clearForm() {
         txtKodeSupplier.setText("");
         txtNamaSupplier.setText("");
@@ -458,15 +459,15 @@ public class DataSupplier extends javax.swing.JFrame {
         String sql = "SELECT * FROM supplier";
 
         try (Connection conn = koneksidatabase.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 list.add(new Supplier(
-                    rs.getString("kode_supplier"),
-                    rs.getString("nama_supplier"),
-                    rs.getString("alamat"),
-                    rs.getString("no_telp")
+                        rs.getString("kode_supplier"),
+                        rs.getString("nama_supplier"),
+                        rs.getString("alamat"),
+                        rs.getString("no_telp")
                 ));
             }
 
@@ -486,7 +487,7 @@ public class DataSupplier extends javax.swing.JFrame {
         model.addColumn("No. Telp");
 
         for (Supplier s : list) {
-            model.addRow(new Object[] {
+            model.addRow(new Object[]{
                 s.getKodeSupplier(), s.getNamaSupplier(), s.getAlamat(), s.getNoTelp()
             });
         }
@@ -542,6 +543,7 @@ public class DataSupplier extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
     private javax.swing.JTextField cari;
@@ -567,4 +569,8 @@ public class DataSupplier extends javax.swing.JFrame {
     private javax.swing.JTextField txtNamaSupplier;
     private javax.swing.JTextField txtNoTelp;
     // End of variables declaration//GEN-END:variables
+
+    private boolean Aku(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

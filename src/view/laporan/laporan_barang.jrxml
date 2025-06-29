@@ -9,7 +9,7 @@
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<style name="Row" mode="Transparent">
 		<conditionalStyle>
-			 <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
@@ -50,6 +50,10 @@
 			<line>
 				<reportElement x="1" y="104" width="799" height="1" uuid="aa1a0bbb-76d0-453f-8943-aaf113f15b48"/>
 			</line>
+			<image>
+				<reportElement x="1" y="0" width="126" height="84" uuid="901f87d9-fe43-45da-b2e5-d90907b48223"/>
+				<imageExpression><![CDATA["C:\\Users\\utari\\OneDrive\\Dokumen\\NetBeansProjects\\siitb\\src\\view\\laporan\\logo jakarta besi.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

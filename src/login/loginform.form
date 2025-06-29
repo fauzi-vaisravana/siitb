@@ -73,11 +73,12 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Perancangan aplikasi rekapitulasi barang jakarta besi"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Perancangan Aplikasi Rekapitulasi Barang Jakarta Besi"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="80" y="90" width="689" height="-1"/>
+          <AbsoluteConstraints x="70" y="90" width="650" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

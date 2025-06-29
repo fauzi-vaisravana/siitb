@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f69a5de7-22c1-42be-8aad-7c342399b977">
-	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -44,7 +44,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="136" splitType="Stretch">
+		<band height="97" splitType="Stretch">
 			<staticText>
 				<reportElement style="Title" x="114" y="0" width="568" height="62" uuid="b41c5ae7-706a-4b48-a608-969043171cf6"/>
 				<textElement verticalAlignment="Middle">
@@ -77,35 +77,35 @@
 			</line>
 			<staticText>
 				<reportElement style="Column header" x="0" y="0" width="100" height="15" forecolor="#736343" uuid="7f2c12ae-7a42-4e98-955e-c7b0478f2f0f"/>
-				<text><![CDATA[id_pembelian]]></text>
+				<text><![CDATA[ID Pembelian]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="100" y="0" width="100" height="15" forecolor="#736343" uuid="e5e52ce8-f623-4ecf-81d3-275ac606b9f7"/>
-				<text><![CDATA[kode_supplier]]></text>
+				<text><![CDATA[Kode Supplier]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="200" y="0" width="100" height="15" forecolor="#736343" uuid="a39f1d85-a8a5-41e7-be75-5571a3fcfc50"/>
-				<text><![CDATA[nama_mitra]]></text>
+				<text><![CDATA[Nama Mitra]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="300" y="0" width="100" height="15" forecolor="#736343" uuid="8a2aeb78-4925-471c-b253-6fd8f7d91b38"/>
-				<text><![CDATA[kode_barang]]></text>
+				<text><![CDATA[Kode Barang]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="400" y="0" width="100" height="15" forecolor="#736343" uuid="a484df57-fb97-40d8-a34a-879e13c5c4f2"/>
-				<text><![CDATA[jumlah]]></text>
+				<text><![CDATA[Jumlah]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="500" y="0" width="100" height="15" forecolor="#736343" uuid="ee40e931-bb4b-4ca3-9ec1-b6d1d3a760f0"/>
-				<text><![CDATA[harga_satuan]]></text>
+				<text><![CDATA[Harga Satuan]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="600" y="0" width="100" height="15" forecolor="#736343" uuid="bd4fb6cd-e428-4767-9ae2-17923f42586c"/>
-				<text><![CDATA[total_harga]]></text>
+				<text><![CDATA[Total Harga]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="700" y="0" width="100" height="15" forecolor="#736343" uuid="408551c4-8b8b-4e0f-930f-3887a28d81f5"/>
-				<text><![CDATA[tanggal]]></text>
+				<text><![CDATA[Tanggal]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
