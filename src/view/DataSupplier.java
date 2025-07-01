@@ -8,7 +8,7 @@ package view;
 import koneksi.koneksidatabase;
 import model.Supplier;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -250,11 +250,11 @@ public class DataSupplier extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tambahSupplier)
-                        .addGap(45, 45, 45)
+                        .addGap(48, 48, 48)
                         .addComponent(editSupplier)
-                        .addGap(49, 49, 49)
+                        .addGap(55, 55, 55)
                         .addComponent(hapusSupplier)
-                        .addGap(224, 224, 224))
+                        .addGap(324, 324, 324))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

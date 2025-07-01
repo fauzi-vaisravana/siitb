@@ -321,9 +321,9 @@ public class PenjualanForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(tambahPenjualanBtn)
-                .addGap(40, 40, 40)
+                .addGap(76, 76, 76)
                 .addComponent(btnCetak)
-                .addGap(314, 314, 314))
+                .addGap(374, 374, 374))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,24 +577,69 @@ public class PenjualanForm extends javax.swing.JFrame {
 
     
     public boolean tambahPenjualan(Penjualan p) {
-        String sql = "INSERT INTO penjualan (kode_pelanggan, kode_barang, jumlah, harga_satuan, total_harga, tanggal) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        String sqlInsertPenjualan = "INSERT INTO penjualan (kode_pelanggan, kode_barang, jumlah, harga_satuan, total_harga, tanggal) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        String sqlUpdateBarang = "UPDATE barang SET stok = stok - ? WHERE kode_barang = ?";
+        String sqlInsertStok = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, 'keluar', CURRENT_TIMESTAMP)";
+        String sqlCekStok = "SELECT stok FROM barang WHERE kode_barang = ?";
 
-        try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+        try (Connection conn = koneksidatabase.getConnection()) {
 
-            pst.setString(1, p.getKodePelanggan());
-            pst.setString(2, p.getKodeBarang());
-            pst.setInt(3, p.getJumlah());
-            pst.setDouble(4, p.getHargaSatuan());
-            pst.setDouble(5, p.getTotalHarga());
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
+                return false;
+            }
 
-            return pst.executeUpdate() > 0;
+            conn.setAutoCommit(false); // mulai transaksi
+
+            // 1. Cek apakah stok mencukupi
+            int stokSaatIni = 0;
+            try (PreparedStatement pstCek = conn.prepareStatement(sqlCekStok)) {
+                pstCek.setString(1, p.getKodeBarang());
+                try (ResultSet rs = pstCek.executeQuery()) {
+                    if (rs.next()) {
+                        stokSaatIni = rs.getInt("stok");
+                    }
+                }
+            }
+
+            if (stokSaatIni < p.getJumlah()) {
+                JOptionPane.showMessageDialog(null, "Stok tidak mencukupi!");
+                return false;
+            }
+
+            // 2. Insert ke tabel penjualan
+            try (PreparedStatement pstPenjualan = conn.prepareStatement(sqlInsertPenjualan)) {
+                pstPenjualan.setString(1, p.getKodePelanggan());
+                pstPenjualan.setString(2, p.getKodeBarang());
+                pstPenjualan.setInt(3, p.getJumlah());
+                pstPenjualan.setDouble(4, p.getHargaSatuan());
+                pstPenjualan.setDouble(5, p.getTotalHarga());
+                pstPenjualan.executeUpdate();
+            }
+
+            // 3. Kurangi stok barang
+            try (PreparedStatement pstUpdateBarang = conn.prepareStatement(sqlUpdateBarang)) {
+                pstUpdateBarang.setInt(1, p.getJumlah());
+                pstUpdateBarang.setString(2, p.getKodeBarang());
+                pstUpdateBarang.executeUpdate();
+            }
+
+            // 4. Catat mutasi ke stok (keluar)
+            try (PreparedStatement pstStok = conn.prepareStatement(sqlInsertStok)) {
+                pstStok.setString(1, p.getKodeBarang());
+                pstStok.setInt(2, p.getJumlah());
+                pstStok.executeUpdate();
+            }
+
+            conn.commit(); // semua berhasil
+            return true;
 
         } catch (SQLException e) {
             System.err.println("Gagal Tambah Penjualan: " + e.getMessage());
             return false;
         }
     }
+
 
     public List<Penjualan> getAllPenjualan() {
         List<Penjualan> list = new ArrayList<>();

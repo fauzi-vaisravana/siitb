@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class koneksidatabase {
      public static Connection getConnection() {
         try {
-            String url = "jdbc:mysql://localhost:3306/siitb_data_new";
+            String url = "jdbc:mysql://localhost:3306/jakarta_besi";
             String user = "root"; // Sesuaikan dengan user XAMPP
             String password = ""; // Kosong jika default XAMPP
             Connection conn = DriverManager.getConnection(url, user, password);

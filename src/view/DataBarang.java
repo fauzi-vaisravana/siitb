@@ -310,28 +310,44 @@ public class DataBarang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public boolean tambahBarang(Barang barang) {
-        String sql = "INSERT INTO barang (kode_barang, nama_barang, stok, harga) VALUES (?, ?, ?, ?)";
+        String sqlBarang = "INSERT INTO barang (kode_barang, nama_barang, stok, harga) VALUES (?, ?, ?, ?)";
+        String sqlStok = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
 
         try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+             PreparedStatement pstBarang = conn.prepareStatement(sqlBarang);
+             PreparedStatement pstStok = conn.prepareStatement(sqlStok)) {
 
             if (conn == null) {
                 JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
                 return false;
             }
 
-            pst.setString(1, barang.getKodeBarang());
-            pst.setString(2, barang.getNamaBarang());
-            pst.setInt(3, barang.getStok());
-            pst.setDouble(4, barang.getHarga());
+            // Mulai transaksi manual
+            conn.setAutoCommit(false);
 
-            return pst.executeUpdate() > 0;
-            
+            // Insert ke tabel barang
+            pstBarang.setString(1, barang.getKodeBarang());
+            pstBarang.setString(2, barang.getNamaBarang());
+            pstBarang.setInt(3, barang.getStok());
+            pstBarang.setDouble(4, barang.getHarga());
+            pstBarang.executeUpdate();
+
+            // Insert ke tabel stok
+            pstStok.setString(1, barang.getKodeBarang());
+            pstStok.setInt(2, barang.getStok());
+            pstStok.setString(3, "masuk");
+            pstStok.executeUpdate();
+
+            // Commit transaksi
+            conn.commit();
+            return true;
+
         } catch (SQLException e) {
             System.err.println("Gagal Menambah Barang: " + e.getMessage());
             return false;
         }
     }
+
     
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -435,28 +451,59 @@ public class DataBarang extends javax.swing.JFrame {
 
     // UPDATE: Edit data barang
     public boolean editBarang(Barang barang) {
-        String sql = "UPDATE barang SET nama_barang = ?, harga = ?, stok = ? WHERE kode_barang = ?";
+    String sqlUpdate = "UPDATE barang SET nama_barang = ?, harga = ?, stok = ? WHERE kode_barang = ?";
+    String sqlSelectStokLama = "SELECT stok FROM barang WHERE kode_barang = ?";
+    String sqlInsertStok = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
 
-        try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+    try (Connection conn = koneksidatabase.getConnection()) {
 
-            if (conn == null) {
-                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
-                return false;
-            }
-
-            pst.setString(1, barang.getNamaBarang());
-            pst.setDouble(2, barang.getHarga());
-            pst.setInt(3, barang.getStok());
-            pst.setString(4, barang.getKodeBarang());
-
-            return pst.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            System.err.println("Gagal Mengedit Barang: " + e.getMessage());
+        if (conn == null) {
+            JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
             return false;
         }
+
+        conn.setAutoCommit(false); // mulai transaksi
+
+        // 1. Ambil stok lama
+        int stokLama = 0;
+        try (PreparedStatement pstSelect = conn.prepareStatement(sqlSelectStokLama)) {
+            pstSelect.setString(1, barang.getKodeBarang());
+            try (ResultSet rs = pstSelect.executeQuery()) {
+                if (rs.next()) {
+                    stokLama = rs.getInt("stok");
+                }
+            }
+        }
+
+        // 2. Update barang
+        try (PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdate)) {
+            pstUpdate.setString(1, barang.getNamaBarang());
+            pstUpdate.setDouble(2, barang.getHarga());
+            pstUpdate.setInt(3, barang.getStok());
+            pstUpdate.setString(4, barang.getKodeBarang());
+            pstUpdate.executeUpdate();
+        }
+
+        // 3. Jika stok berubah, insert ke tabel stok
+        int selisih = barang.getStok() - stokLama;
+        if (selisih != 0) {
+            try (PreparedStatement pstStok = conn.prepareStatement(sqlInsertStok)) {
+                pstStok.setString(1, barang.getKodeBarang());
+                pstStok.setInt(2, Math.abs(selisih));
+                pstStok.setString(3, selisih > 0 ? "masuk" : "keluar");
+                pstStok.executeUpdate();
+            }
+        }
+
+        conn.commit(); // simpan semua perubahan
+        return true;
+
+    } catch (SQLException e) {
+        System.err.println("Gagal Mengedit Barang: " + e.getMessage());
+        return false;
     }
+}
+
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {

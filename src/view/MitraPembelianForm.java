@@ -371,25 +371,53 @@ public class MitraPembelianForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public boolean tambahPembelian(Mitra m) {
-        String sql = "INSERT INTO mitra (kode_supplier, nama_mitra, kode_barang, jumlah, harga_satuan, total_harga, tanggal) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        String sqlInsertMitra = "INSERT INTO mitra (kode_supplier, nama_mitra, kode_barang, jumlah, harga_satuan, total_harga, tanggal) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        String sqlUpdateBarang = "UPDATE barang SET stok = stok + ? WHERE kode_barang = ?";
+        String sqlInsertStok = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, 'masuk', CURRENT_TIMESTAMP)";
 
-        try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+        try (Connection conn = koneksidatabase.getConnection()) {
 
-            pst.setString(1, m.getKodeSupplier());
-            pst.setString(2, m.getNamaMitra());
-            pst.setString(3, m.getKodeBarang());
-            pst.setInt(4, m.getJumlah());
-            pst.setDouble(5, m.getHargaSatuan());
-            pst.setDouble(6, m.getTotalHarga());
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
+                return false;
+            }
 
-            return pst.executeUpdate() > 0;
+            conn.setAutoCommit(false); // mulai transaksi
+
+            // 1. Insert ke tabel mitra (pembelian)
+            try (PreparedStatement pstMitra = conn.prepareStatement(sqlInsertMitra)) {
+                pstMitra.setString(1, m.getKodeSupplier());
+                pstMitra.setString(2, m.getNamaMitra());
+                pstMitra.setString(3, m.getKodeBarang());
+                pstMitra.setInt(4, m.getJumlah());
+                pstMitra.setDouble(5, m.getHargaSatuan());
+                pstMitra.setDouble(6, m.getTotalHarga());
+                pstMitra.executeUpdate();
+            }
+
+            // 2. Update stok barang (tambah stok)
+            try (PreparedStatement pstUpdateBarang = conn.prepareStatement(sqlUpdateBarang)) {
+                pstUpdateBarang.setInt(1, m.getJumlah());
+                pstUpdateBarang.setString(2, m.getKodeBarang());
+                pstUpdateBarang.executeUpdate();
+            }
+
+            // 3. Insert ke tabel stok (mutasi masuk)
+            try (PreparedStatement pstStok = conn.prepareStatement(sqlInsertStok)) {
+                pstStok.setString(1, m.getKodeBarang());
+                pstStok.setInt(2, m.getJumlah());
+                pstStok.executeUpdate();
+            }
+
+            conn.commit(); // semua berhasil
+            return true;
 
         } catch (SQLException e) {
             System.err.println("Gagal Tambah Pembelian: " + e.getMessage());
             return false;
         }
     }
+
     
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
