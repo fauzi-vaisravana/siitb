@@ -13,7 +13,7 @@ import login.logoutform;
 /**
  *
  * @author Kelompok 2
- */
+ */ 
 public class MainMenu extends javax.swing.JFrame {
  
     /**
@@ -52,7 +52,6 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuItemStok = new javax.swing.JMenuItem();
         jMenuPengaturan = new javax.swing.JMenu();
         jMenuItemLogout = new javax.swing.JMenuItem();
-        jMenuItemGantiPassword = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,14 +139,6 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jMenuPengaturan.add(jMenuItemLogout);
 
-        jMenuItemGantiPassword.setText("Ganti Password");
-        jMenuItemGantiPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemGantiPasswordActionPerformed(evt);
-            }
-        });
-        jMenuPengaturan.add(jMenuItemGantiPassword);
-
         jMenuBar1.add(jMenuPengaturan);
 
         setJMenuBar(jMenuBar1);
@@ -179,10 +170,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuPengaturanActionPerformed
 
-    private void jMenuItemGantiPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGantiPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemGantiPasswordActionPerformed
-
     private void jMenuItemPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPelangganActionPerformed
         DataPelanggan datapelanggan = new DataPelanggan();
         datapelanggan.setVisible(true);
@@ -208,6 +195,48 @@ public class MainMenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItemLogoutActionPerformed
 
+    public void setAksesMenu(String role) {
+        if (role.equals("admin")) {
+            // Semua menu aktif
+            jMenuMaster.setVisible(true);
+            jMenuTransaksi.setVisible(true);
+            jMenuPengaturan.setVisible(true);
+
+            jMenuItemBarang.setVisible(true);
+            jMenuItemSupplier.setVisible(true);
+            jMenuItemPelanggan.setVisible(true);
+            jMenuItemPembelian.setVisible(true);
+            jMenuItemPenjualan.setVisible(true);
+            jMenuItemStok.setVisible(true);
+
+        } else if (role.equals("kasir")) {
+            // Kasir hanya bisa penjualan
+            jMenuMaster.setVisible(false);
+            jMenuTransaksi.setVisible(true);
+            jMenuPengaturan.setVisible(true);
+
+            jMenuItemPembelian.setVisible(false);  // Mitra
+            jMenuItemStok.setVisible(false);       // Stok Barang
+            jMenuItemPenjualan.setVisible(true);   // Penjualan
+
+        } else if (role.equals("gudang")) {
+            // Gudang tidak bisa penjualan & pelanggan
+            jMenuMaster.setVisible(true);
+            jMenuTransaksi.setVisible(true);
+            jMenuPengaturan.setVisible(true);
+
+            jMenuItemBarang.setVisible(true);
+            jMenuItemSupplier.setVisible(true);
+            jMenuItemPelanggan.setVisible(false);  // tidak boleh
+
+            jMenuItemPembelian.setVisible(true);   // Mitra
+            jMenuItemStok.setVisible(true);        // Stok Barang
+            jMenuItemPenjualan.setVisible(false);  // tidak boleh
+        }
+    }
+
+
+    
     /**
      * @param args the command line arguments
      */
@@ -249,7 +278,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuHome;
     private javax.swing.JMenuItem jMenuItemBarang;
-    private javax.swing.JMenuItem jMenuItemGantiPassword;
     private javax.swing.JMenuItem jMenuItemLogout;
     private javax.swing.JMenuItem jMenuItemPelanggan;
     private javax.swing.JMenuItem jMenuItemPembelian;

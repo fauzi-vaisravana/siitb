@@ -140,30 +140,34 @@ public class loginform extends javax.swing.JFrame {
 
     private void buttonloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonloginActionPerformed
         String username = L_username.getText();
-        String password = new String(L_password.getPassword());
+    String password = new String(L_password.getPassword());
 
-        try {
-            Connection conn = koneksidatabase.getConnection();
-            String sql = "SELECT * FROM users WHERE username=? AND password=?";
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, username);
-            pst.setString(2, password);
-            ResultSet rs = pst.executeQuery();
+    try {
+        Connection conn = koneksidatabase.getConnection();
+        String sql = "SELECT * FROM users WHERE username=? AND password=?";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, username);
+        pst.setString(2, password);
+        ResultSet rs = pst.executeQuery();
 
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Login Berhasil!");
-                new MainMenu().setVisible(true); // Ubah dengan form utama setelah login
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Username atau Password salah!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        if (rs.next()) {
+            String role = rs.getString("role");
+            JOptionPane.showMessageDialog(this, "Login Berhasil sebagai " + role + "!");
 
-            rs.close();
-            pst.close();
-            conn.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.setAksesMenu(role);  // Kirim role ke MainMenu
+            mainMenu.setVisible(true);
+            this.dispose(); // tutup login
+        } else {
+            JOptionPane.showMessageDialog(this, "Username atau Password salah!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        rs.close();
+        pst.close();
+        conn.close();
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_buttonloginActionPerformed
 
     private void L_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_L_passwordActionPerformed
