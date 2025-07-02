@@ -414,22 +414,44 @@ public class StokForm extends javax.swing.JFrame {
     }
 }
     public boolean tambahStok(Stok s) {
-        String sql = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+        String sqlInsertStok = "INSERT INTO stok (kode_barang, jumlah, tipe, tanggal) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+        String sqlUpdateBarangMasuk = "UPDATE barang SET stok = stok + ? WHERE kode_barang = ?";
+        String sqlUpdateBarangKeluar = "UPDATE barang SET stok = stok - ? WHERE kode_barang = ?";
 
-        try (Connection conn = koneksidatabase.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+        try (Connection conn = koneksidatabase.getConnection()) {
 
-            pst.setString(1, s.getKodeBarang());
-            pst.setInt(2, s.getJumlah());
-            pst.setString(3, s.getTipe()); // 'masuk' atau 'keluar'
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Koneksi Database Gagal!");
+                return false;
+            }
 
-            return pst.executeUpdate() > 0;
+            conn.setAutoCommit(false); // mulai transaksi
+
+            // 1. Tambah ke tabel stok
+            try (PreparedStatement pst = conn.prepareStatement(sqlInsertStok)) {
+                pst.setString(1, s.getKodeBarang());
+                pst.setInt(2, s.getJumlah());
+                pst.setString(3, s.getTipe());
+                pst.executeUpdate();
+            }
+
+            // 2. Update stok di tabel barang
+            String sqlUpdate = s.getTipe().equalsIgnoreCase("masuk") ? sqlUpdateBarangMasuk : sqlUpdateBarangKeluar;
+            try (PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdate)) {
+                pstUpdate.setInt(1, s.getJumlah());
+                pstUpdate.setString(2, s.getKodeBarang());
+                pstUpdate.executeUpdate();
+            }
+
+            conn.commit(); // simpan semua
+            return true;
 
         } catch (SQLException e) {
             System.err.println("Gagal Tambah Mutasi Stok: " + e.getMessage());
             return false;
         }
     }
+
 
     public List<Stok> getAllStok() {
         List<Stok> list = new ArrayList<>();
