@@ -322,7 +322,6 @@ public class DataBarang extends javax.swing.JFrame {
                 return false;
             }
 
-            // Mulai transaksi manual
             conn.setAutoCommit(false);
 
             // Insert ke tabel barang
@@ -332,13 +331,14 @@ public class DataBarang extends javax.swing.JFrame {
             pstBarang.setDouble(4, barang.getHarga());
             pstBarang.executeUpdate();
 
-            // Insert ke tabel stok
-            pstStok.setString(1, barang.getKodeBarang());
-            pstStok.setInt(2, barang.getStok());
-            pstStok.setString(3, "masuk");
-            pstStok.executeUpdate();
+            // Hanya insert ke tabel stok jika stok > 0
+            if (barang.getStok() > 0) {
+                pstStok.setString(1, barang.getKodeBarang());
+                pstStok.setInt(2, barang.getStok());
+                pstStok.setString(3, "masuk");
+                pstStok.executeUpdate();
+            }
 
-            // Commit transaksi
             conn.commit();
             return true;
 
@@ -347,6 +347,7 @@ public class DataBarang extends javax.swing.JFrame {
             return false;
         }
     }
+
 
     
     
