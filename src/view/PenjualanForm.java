@@ -468,7 +468,7 @@ public class PenjualanForm extends javax.swing.JFrame {
                 if (rs.next()) {
                     cmbBarang.setText(rs.getString("kode_barang"));
                     txtHarga.setText(String.valueOf(rs.getDouble("harga"))); // atau rs.getString("harga")
-                    cmbstokbarang.setText(String.valueOf(rs.getDouble("stok")));
+                    cmbstokbarang.setText(String.valueOf(rs.getString("stok")));
                 } else {
                     cmbBarang.setText("");
                     txtHarga.setText("");
