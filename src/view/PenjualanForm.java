@@ -75,6 +75,8 @@ public class PenjualanForm extends javax.swing.JFrame {
         cmbBarang = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         cmbPelanggan = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        cmbstokbarang = new javax.swing.JTextField();
         tambahPenjualanBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -145,6 +147,15 @@ public class PenjualanForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Stok Barang");
+
+        cmbstokbarang.setEditable(false);
+        cmbstokbarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbstokbarangActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -169,11 +180,20 @@ public class PenjualanForm extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(namaBarangTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbstokbarang, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtHarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +226,9 @@ public class PenjualanForm extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(namaBarangTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(namaBarangTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(cmbstokbarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -267,7 +289,7 @@ public class PenjualanForm extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCari))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         tabelPenjualan.setModel(new javax.swing.table.DefaultTableModel(
@@ -330,7 +352,7 @@ public class PenjualanForm extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 316, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(279, 279, 279)
                         .addComponent(jButton5))
@@ -439,16 +461,18 @@ public class PenjualanForm extends javax.swing.JFrame {
             try {
                 Connection conn = koneksidatabase.getConnection();
                 PreparedStatement ps = conn.prepareStatement(
-                    "SELECT kode_barang, harga FROM barang WHERE nama_barang = ?"
+                    "SELECT kode_barang, harga, stok FROM barang WHERE nama_barang = ?"
                 );
                 ps.setString(1, nama);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     cmbBarang.setText(rs.getString("kode_barang"));
                     txtHarga.setText(String.valueOf(rs.getDouble("harga"))); // atau rs.getString("harga")
+                    cmbstokbarang.setText(String.valueOf(rs.getDouble("stok")));
                 } else {
                     cmbBarang.setText("");
                     txtHarga.setText("");
+                    cmbstokbarang.setText("");
                     
                 }
                 
@@ -461,6 +485,7 @@ public class PenjualanForm extends javax.swing.JFrame {
         } else {
             cmbBarang.setText("");
             txtHarga.setText("");
+            cmbstokbarang.setText("");
         }
     }//GEN-LAST:event_namaBarangTxtActionPerformed
 
@@ -495,6 +520,10 @@ public class PenjualanForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnCetakActionPerformed
+
+    private void cmbstokbarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbstokbarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbstokbarangActionPerformed
     
     private void cariDataPenjualan(String keyword) {
     DefaultTableModel model = (DefaultTableModel) tabelPenjualan.getModel();
@@ -758,8 +787,10 @@ public class PenjualanForm extends javax.swing.JFrame {
     private javax.swing.JTextField cari;
     private javax.swing.JTextField cmbBarang;
     private javax.swing.JTextField cmbPelanggan;
+    private javax.swing.JTextField cmbstokbarang;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
